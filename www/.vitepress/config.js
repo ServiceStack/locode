@@ -9,8 +9,8 @@ export default {
         lastUpdated: 'Last Updated',
         //lastUpdated: false,
         nav: [
-            { link:"https://docs.locode.dev", text:"Docs" },
-            { link:"https://docs.locode.dev/api/modules/shared.html", text:"API Reference" },
+            { link:"/docs/", text:"Docs" },
+            { link:"https://api.locode.dev/modules/shared.html", text:"API Reference" },
             { link:'https://forums.servicestack.net', text:'Forums' },
         ],
         sidebar: {
