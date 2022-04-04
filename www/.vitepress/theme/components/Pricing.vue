@@ -72,7 +72,7 @@
               </ul>
               <div class="rounded-md shadow">
                 <a href="https://account.servicestack.net/buy/IND"
-                   class="flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-800 hover:bg-gray-900" aria-describedby="tier-standard">
+                   class="hover:no-underline flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-800 hover:bg-gray-900" aria-describedby="tier-standard">
                   Order Now
                 </a>
               </div>
@@ -156,7 +156,7 @@
               </ul>
               <div class="rounded-md shadow">
                 <a href="https://account.servicestack.net/buy/BUS"
-                   class="flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-800 hover:bg-gray-900" aria-describedby="tier-standard">
+                   class="hover:no-underline flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-800 hover:bg-gray-900" aria-describedby="tier-standard">
                   Order Now
                 </a>
               </div>
@@ -180,7 +180,8 @@
             </div>
           </div>
           <div class="mt-6 rounded-md shadow lg:mt-0 lg:ml-10 lg:flex-shrink-0">
-            <a href="https://servicestack.net/trial" class="flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-gray-900 bg-white hover:bg-gray-50">
+            <a href="https://servicestack.net/trial"
+               class="hover:no-underline flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-gray-900 bg-white hover:bg-gray-50">
               30 Day Free Trial
             </a>
           </div>
