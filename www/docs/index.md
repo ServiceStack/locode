@@ -6,16 +6,16 @@ Type definitions for functionality available in ServiceStack UI's
 
 |  Namespace | Description |
 |  --- | --- |
-|  [shared](./api/modules/shared.html)     | Type Definitions for all Types and shared functionality used in all UI's |
-|  [client](./api/modules/client.html)     | Type Definitions for the [@servicestack/client](https://github.com/ServiceStack/servicestack-client) library |
+|  [shared](https://api.locode.dev/modules/shared.html)     | Type Definitions for all Types and shared functionality used in all UI's |
+|  [client](https://api.locode.dev/modules/client.html)     | Type Definitions for the [@servicestack/client](https://github.com/ServiceStack/servicestack-client) library |
 
 ### UIs
 
 |  UI | Description |
 |  --- | --- |
-|  [locode](./api/modules/locode.html)     | Global App and Type instances available in [Locode Apps](https://locode.dev) |
-|  [explorer](./api/modules/explorer.html) | Global App and Type instances available in [API Explorer](https://docs.servicestack.net/api-explorer) |
-|  [admin](./api/modules/admin.html)       | Global App and Type instances available in ServiceStack's [Admin UI](https://docs.servicestack.net/admin-ui) |
+|  [locode](https://api.locode.dev/modules/locode.html)     | Global App and Type instances available in [Locode Apps](https://locode.dev) |
+|  [explorer](https://api.locode.dev/modules/explorer.html) | Global App and Type instances available in [API Explorer](https://docs.servicestack.net/api-explorer) |
+|  [admin](https://api.locode.dev/modules/admin.html)       | Global App and Type instances available in ServiceStack's [Admin UI](https://docs.servicestack.net/admin-ui) |
 
 ## Getting Started
 
