@@ -24,7 +24,7 @@
               </div>
               <div class="mt-4 flex items-baseline text-6xl font-extrabold">
                 $299
-                <span class="ml-1 text-2xl font-medium text-gray-500"> /mo </span>
+                <span class="ml-1 text-2xl font-medium text-gray-500"></span>
               </div>
               <p class="mt-5 text-lg text-gray-500">For Individuals, non-profits or organizations with 10 employees or less</p>
             </div>
@@ -88,7 +88,7 @@
               </div>
               <div class="mt-4 flex items-baseline text-6xl font-extrabold">
                 $999
-                <span class="ml-1 text-2xl font-medium text-gray-500"> /mo </span>
+                <span class="ml-1 text-2xl font-medium text-gray-500"></span>
               </div>
               <p class="mt-5 text-lg text-gray-500">For large organizations with more than 10 total employees</p>
             </div>

@@ -1,3 +1,11 @@
+<script setup lang="ts">
+import Northwind from './Northwind.vue'
+import Chinook from './Chinook.vue'
+import Talent from './Talent.vue'
+import Pricing from './Pricing.vue'
+import Features from './Features.vue'
+</script>
+
 <template>
   <div class="relative overflow-hidden">
 
@@ -94,8 +102,9 @@
 
     </main>
   </div>
+  <Features />
+  <Northwind />
+  <Chinook />
+  <Talent />
+  <Pricing />
 </template>
-
-<script setup lang="ts">
-
-</script>
