@@ -31,8 +31,8 @@ import Features from './Features.vue'
                   <b>Locode</b> lets you rapidly develop progressive beautiful database-powered Web Apps,
                   from an Instant UI around existing database-first RDBMS tables for rapid prototyping,
                   export into declarative code-first development model with unprecedented customizability,
-                  on top of the world's most versatile APIs offering a
-                  superior typed development model for custom Web, Mobile &amp; Desktop Apps.
+                  on top of industrial strength APIs offering a superior end-to-end typed development model for
+                  Web, Mobile &amp; Desktop Apps.
                 </p>
               </div>
             </div>
