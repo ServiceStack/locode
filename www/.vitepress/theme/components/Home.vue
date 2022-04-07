@@ -91,7 +91,7 @@ import Features from './Features.vue'
             </div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 pb-40">
               <div class="aspect-w-16 aspect-h-9">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/6KNDnW6orks?start=17" title="YouTube video player"
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/uN5NUULTBQ8" title="YouTube video player"
                         frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
               </div>
             </div>
