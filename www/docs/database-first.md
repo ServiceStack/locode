@@ -2,10 +2,12 @@
 title: Locode - Database-first
 ---
 
+
 # Database-first
 If you have an existing database with data that needs to be managed directly, a Create, Read, Update, Delete (CRUD) application,
 you can configure your ServiceStack application to use AutoQuery Generated Services. This will use your database schema
 to generate a working Locode app that can be extended and customized.
+
 
 ## Northwind example
 We have an example of this in the [Northwind demo](https://northwind.locode.dev) which provides a way to manage 
@@ -52,6 +54,8 @@ x mix sqlite autoquery
 > Replace `sqlite` with `postgres`, `sqlserver`, or `mysql` or other RDBMS providers.
 
 This command will create two files, `Configure.Db.cs` and `Configure.AutoQuery.cs` and install required NuGet dependencies into the AppHost (MyLocodeApp in the link above) project.
+
+
 
 ### Configure.Db.cs
 
@@ -255,3 +259,127 @@ Instead of `Tables` we can now see our `Northwind` tag in the Locode app UI.
 As more non-unique `Tag` names are added, additional drop down menus will be created to group your services together.
 
 ### Custom table `Icon`
+
+On database model classes, the `Icon` attribute can be used with a `Uri` or `Svg` to style the table in the left menu and when 
+lookup data is displayed. For example, if we use the `TypeFilter` to access the data model types, we can apply the `Icon` attribute dynamically
+to `Order` it will impact the tables that reference `Order`.
+
+```csharp
+TypeFilter = (type, req) =>
+{
+    if (Icons.TryGetValue(type.Name, out var icon))
+        type.AddAttribute(new IconAttribute { Svg = Svg.Create(icon) });
+    ...
+}
+
+public static Dictionary<string, string> Icons { get; } = new()
+{
+    ["Order"] =
+        "<path fill='currentColor' ...",
+};
+```
+
+<ul role="list" class="m-4 grid grid-cols-1 xl:grid-cols-2 gap-x-4 gap-y-8 xl:gap-x-8">
+  <li class="relative">
+    <div class="group block w-full aspect-w-13 aspect-h-6 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
+      <img src="/assets/img/docs/database-first-northwind-icons-default.png" alt="" class="object-cover pointer-events-none group-hover:opacity-75">
+    </div>
+    <p class="block text-sm font-medium text-gray-500 pointer-events-none">Default Icon</p>
+  </li>
+  <li class="relative">
+    <div class="group block w-full aspect-w-13 aspect-h-6  rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
+      <img src="/assets/img/docs/database-first-northwind-icons-custom.png" alt="" class="object-cover pointer-events-none group-hover:opacity-75">
+    </div>
+    <p class="block text-sm font-medium text-gray-500 pointer-events-none">Custom Icon</p>
+  </li>
+</ul>
+
+### Managed Files Uploads
+
+A high level feature that integrates with Locode is the `FileUploadFeature` plugin which is combined with `VirtualFileSource`.
+This enables a way to associate a file path that can be stored in your custom tables which is mapped to a `VirtualFileSource`,
+which means the uploaded files don't live in the database itself taking up a lot of room, the database only stores the reference.
+
+```csharp
+var wwwrootVfs = GetVirtualFileSource<FileSystemVirtualFiles>();
+Plugins.Add(new FilesUploadFeature(
+    new UploadLocation("employees", wwwrootVfs, allowExtensions: FileExt.WebImages,
+        writeAccessRole: RoleNames.AllowAnon,
+        resolvePath: ctx => $"/profiles/employees/{ctx.Dto.GetId()}.{ctx.FileExtension}")));
+```
+
+The `UploadLocation` is a named mapping which is then referenced on the data model column which stores the *path* only.
+This reference is made using the `UploadTo` attribute specifying the matching name, eg "employees".
+
+The `TypeFilter` also fires for request and response DTO types, and we can find matching request DTO types from the desired model name 
+using `IsCrudCreateOrUpdate("Employee")`. This is a dynamic way of applying attributes to our database model `Employee` and related `CreateEmployee`/`UpdateEmployee` 
+which can be more clearly represented in a code-first way using the following 3 classes. 
+
+```csharp
+// Generated database model
+public class Employee
+{
+    ...
+    [Format(FormatMethods.IconRounded)]
+    public string PhotoPath { get;set; }
+    ...
+}
+
+// Generated Request DTO for create
+public class CreateEmployee : ICreateDb<Employee>, IReturn<IdResponse>
+{
+    ...
+    [Input(Type=Input.Types.File)]
+    [UploadTo("employees")]
+    public string PhotoPath { get;set; }
+}
+
+// Generated Request DTO for create
+public class UpdateEmployee : IPatchDb<Employee>, IReturn<IdResponse>
+{
+    ...
+    [Input(Type=Input.Types.File)]
+    [UploadTo("employees")]
+    public string PhotoPath { get;set; }
+}
+```
+
+This is done dynamically using the following code found in the `Northwind` Locode demo.
+
+```csharp
+```csharp
+TypeFilter = (type, req) =>
+{
+    ...
+    if (type.Name == "Employee" || type.IsCrudCreateOrUpdate("Employee"))
+    {
+        ...
+        if (type.IsCrud())
+        {
+            type.Property("PhotoPath")
+                .AddAttribute(new InputAttribute { Type = Input.Types.File })
+                .AddAttribute(new UploadToAttribute("employees"));
+        }
+    }
+    ...
+}
+```
+
+Our sample Northwind database does store `Photo` as a blobbed data. For the demo, we are removing `Photo` column from the generated type 
+and repurposing the `PhotoPath` to reference files matching the `Id` of the employee in a registered `FileSystemVirtualFiles` virtual file source.
+
+> If files are stored in the database, to use the `FilesUploadFeature` they would need to be migrated out to a supported storage.
+
+```csharp
+TypeFilter = (type, req) =>
+{
+    ...
+    if (type.Name == "Employee" || type.IsCrudCreateOrUpdate("Employee"))
+    {
+        type.Properties.RemoveAll(x => x.Name == "Photo");
+        ...
+    }
+    ...
+}
+```
+
