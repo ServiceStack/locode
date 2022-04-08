@@ -1,4 +1,18 @@
 @tailwind base;
+
+@layer base {
+    h1 {
+        @apply text-4xl font-bold leading-7 text-gray-900 sm:text-3xl pt-2 pb-1 sm:truncate;
+    }
+    h2 {
+        @apply text-2xl font-bold leading-7 text-gray-900 sm:text-2xl pt-2 pb-1 sm:truncate;
+    }
+    h3 {
+        @apply text-xl font-bold leading-7 text-gray-900 pt-2 pb-1 sm:truncate;
+    }
+}
+
+
 @tailwind components;
 @tailwind utilities;
 
