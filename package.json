@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "vitepress dev www",
-    "build": "vitepress build www",
+    "build": "vitepress build www && vitepress build www",
     "serve": "vitepress serve www"
   },
   "repository": {
@@ -29,9 +29,7 @@
   },
   "postcss": {
     "plugins": {
-      "tailwindcss": {
-        "config": "./tailwind.config.js"
-      },
+      "tailwindcss": {},
       "autoprefixer": {}
     }
   }
