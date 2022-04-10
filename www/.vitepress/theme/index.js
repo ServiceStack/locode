@@ -1,3 +1,4 @@
+import './tailwind.postcss'
 import DefaultTheme from 'vitepress/theme'
 
 import './custom.css'
@@ -11,7 +12,6 @@ export default {
         title: 'Site Title'
     },
     enhanceApp({ app, router, siteData }) {
-        console.log(siteData)
         // register global components
         app.component('MyGlobalComponent' /* ... */)
     }
