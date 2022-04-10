@@ -1,4 +1,4 @@
-## API Reference
+# API Reference
 
 Type definitions for functionality available in ServiceStack UI's
 

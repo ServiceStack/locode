@@ -14,6 +14,7 @@ module.exports = {
             'code::after': {
               content: '""'
             },
+            paddingTop: '2rem',
             maxWidth: 'unset',
 
             a: {
@@ -24,6 +25,10 @@ module.exports = {
               },
             },
 
+            table: {
+              fontSize: 'unset',
+              lineHeight: 'unset',
+            },
             th: {
               padding:'0.6em 1em'
             },
