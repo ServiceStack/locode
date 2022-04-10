@@ -51,7 +51,9 @@ We can use the dotnet `x` tool to `mix` in specific database support and AutoQue
 x mix sqlite autoquery
 :::
 
-> Replace `sqlite` with `postgres`, `sqlserver`, or `mysql` or other RDBMS providers.
+::: tip
+Replace `sqlite` with `postgres`, `sqlserver`, or `mysql` or other RDBMS providers
+:::
 
 This command will create two files, `Configure.Db.cs` and `Configure.AutoQuery.cs` and install required NuGet dependencies into the AppHost (MyLocodeApp in the link above) project.
 
@@ -368,7 +370,9 @@ TypeFilter = (type, req) =>
 Our sample Northwind database does store `Photo` as a blobbed data. For the demo, we are removing `Photo` column from the generated type 
 and repurposing the `PhotoPath` to reference files matching the `Id` of the employee in a registered `FileSystemVirtualFiles` virtual file source.
 
-> If files are stored in the database, to use the `FilesUploadFeature` they would need to be migrated out to a supported storage.
+::: tip
+If files are stored in the database, to use the `FilesUploadFeature` they would need to be migrated out to a supported storage
+:::
 
 ```csharp
 TypeFilter = (type, req) =>
@@ -382,4 +386,3 @@ TypeFilter = (type, req) =>
     ...
 }
 ```
-
