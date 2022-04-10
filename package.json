@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/ServiceStack/locode#readme",
   "dependencies": {
+    "markdown-it-container": "^3.0.0",
     "vitepress": "^0.22.3"
   },
   "devDependencies": {

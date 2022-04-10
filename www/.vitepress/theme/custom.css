@@ -8,4 +8,20 @@
 b {
     font-weight: 500;
 }
+.page>.container {
+    max-width: 57rem;
+}
 
+/* from https://github.com/ServiceStack/docs/blob/master/docs/.vitepress/theme/custom.css */
+.copied { display: none}
+.copying .copied { display: block }
+.copying .nocopy { display: none }
+
+.cp p, .cp p code { margin:0; padding:0 }
+
+.nuget-copy p, .nuget-copy p code { color:#fff }
+
+.sh-copy p, .sh-copy p code { color: rgb(243 244 246) }
+.sh-copy p::before { content:'$ '; color: rgb(156 163 175) }
+.sh-copy a { color: rgb(243 244 246) }
+.sh-copy a:hover { text-decoration: none }
