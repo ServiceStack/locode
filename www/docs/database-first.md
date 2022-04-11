@@ -256,7 +256,7 @@ Instead of `Tables` we can now see our `Northwind` tag in the Locode app UI.
   </li>
 </ul>
 
-As more non-unique `Tag` names are added, additional drop down menus will be created to group your services together.
+As more unique `Tag` names are added, additional drop down menus will be created to group your services together.
 
 ### Custom table `Icon`
 
@@ -311,9 +311,10 @@ Plugins.Add(new FilesUploadFeature(
 The `UploadLocation` is a named mapping which is then referenced on the data model column which stores the *path* only.
 This reference is made using the `UploadTo` attribute specifying the matching name, eg "employees".
 
-The `TypeFilter` also fires for request and response DTO types, and we can find matching request DTO types from the desired model name 
-using `IsCrudCreateOrUpdate("Employee")`. This is a dynamic way of applying attributes to our database model `Employee` and related `CreateEmployee`/`UpdateEmployee` 
-which can be more clearly represented in a code-first way using the following 3 classes. 
+The `TypeFilter` also fires for request and response DTO types, and we can find matching request DTO types from the 
+desired model name using `IsCrudCreateOrUpdate("Employee")`. This is a dynamic way of applying attributes to our 
+database model `Employee` and related `CreateEmployee`/`UpdateEmployee` which can be more clearly represented in 
+a code-first way using the following 3 classes. 
 
 ```csharp
 // Generated database model
@@ -365,8 +366,9 @@ TypeFilter = (type, req) =>
 }
 ```
 
-Our sample Northwind database does store `Photo` as a blobbed data. For the demo, we are removing `Photo` column from the generated type 
-and repurposing the `PhotoPath` to reference files matching the `Id` of the employee in a registered `FileSystemVirtualFiles` virtual file source.
+Our sample Northwind database does store `Photo` as a blobbed data. For the demo, we are removing `Photo` column from 
+the generated type and repurposing the `PhotoPath` to reference files matching the `Id` of the employee in a registered 
+`FileSystemVirtualFiles` virtual file source.
 
 > If files are stored in the database, to use the `FilesUploadFeature` they would need to be migrated out to a supported storage.
 
@@ -383,3 +385,167 @@ TypeFilter = (type, req) =>
 }
 ```
 
+### Changing field `Input` controls
+
+The `PhotoPath` and `Notes` properties on the `Epmployee` table also have custom `InputAttribute` applied to change the Locode app HTML input type.
+Since the `PhotoPath` is related to a file upload and use of `UploadTo`, we want to have a way for the Locode client to upload files.
+`[Input(Type=Input.Types.File)]` adds metadata so the Locode app knows to use a file upload control for this field. The `Notes` property 
+contains more long form text, so instead of the standard one line `text` input, an `Input.Types.Textarea` can be used.
+
+<ul role="list" class="m-4 grid grid-cols-1 xl:grid-cols-2 gap-x-4 gap-y-8 xl:gap-x-8">
+  <li class="relative">
+    <div class="group block w-full aspect-w-13 aspect-h-6 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
+      <img src="/assets/img/docs/database-first-northwind-input-1.png" alt="" class="object-cover pointer-events-none group-hover:opacity-75">
+    </div>
+    <p class="block text-sm font-medium text-gray-500 pointer-events-none">Without `Input`</p>
+  </li>
+  <li class="relative">
+    <div class="group block w-full aspect-w-13 aspect-h-6  rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
+      <img src="/assets/img/docs/database-first-northwind-input-2.png" alt="" class="object-cover pointer-events-none group-hover:opacity-75">
+    </div>
+    <p class="block text-sm font-medium text-gray-500 pointer-events-none">Custom `Input`</p>
+  </li>
+</ul>
+
+### Lookup tables and appearance
+
+With the database-first approach, foreign ke columns and table relationships are reflected in the Locode app with the use of 
+look up tables when created, editing or navigating between services. In the Northwind example, this can be seen in services like 
+`OrderDetails`, `Order` and `Product`. If the database doesn't have this relationship in the schema but you need 
+to add it in Locode app, the `Ref` attribute can be ued. 
+
+```
+TypeFilter = (type, req) =>
+{
+    ...
+    if (type.Name == "Employee" || type.IsCrudCreateOrUpdate("Employee"))
+    {
+        ...
+        if (type.IsCrud())
+        {
+            ...
+        }
+        else if (type.Name == "Employee")
+        {
+            type.Property("ReportsTo").AddAttribute(
+                new RefAttribute { Model = "Employee", RefId = "Id", RefLabel = "LastName" });
+        }
+    }
+}
+```
+
+<ul role="list" class="m-4 grid grid-cols-1 xl:grid-cols-2 gap-x-4 gap-y-8 xl:gap-x-8">
+  <li class="relative">
+    <div class="group block w-full aspect-w-13 aspect-h-6 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
+      <img src="/assets/img/docs/database-first-northwind-input-1.png" alt="" class="object-cover pointer-events-none group-hover:opacity-75">
+    </div>
+    <p class="block text-sm font-medium text-gray-500 pointer-events-none">Without `Input`</p>
+  </li>
+  <li class="relative">
+    <div class="group block w-full aspect-w-13 aspect-h-6  rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
+      <img src="/assets/img/docs/database-first-northwind-input-2.png" alt="" class="object-cover pointer-events-none group-hover:opacity-75">
+    </div>
+    <p class="block text-sm font-medium text-gray-500 pointer-events-none">Custom `Input`</p>
+  </li>
+</ul>
+
+This enables the lookup field UI functionality for the `ReportsTo` property making it is easy to select the correct `Id` to be stored in the same column.
+
+<img src="/assets/img/docs/locode-lookup.gif" alt="" class="object-cover pointer-events-none group-hover:opacity-75">
+
+The use of `RefLabel` controls which column on the `RefModel` is to be used as the visual data in the Locode app. The `RefId` is the target `RefModel` column in the foreign key relationship.
+
+### Format column data
+
+To make the Locode app UI easier to use, data can be reformatted on the client for query results. For example, `Phone` and 
+`Fax` properties for `Customer`, `Supplier`, and `Shipper` can use the `FormatAttribute` and the `FormatMethods.LinkPhone` option 
+to change the UI to present these columns as a `tel:` HTML link. 
+
+```csharp
+TypeFilter = (type, req) =>
+{
+    ...
+    if (type.Name == "Employee" || type.IsCrudCreateOrUpdate("Employee"))
+    {
+        ...
+    }
+    ...
+    else if (type.Name is "Customer" or "Supplier" or "Shipper")
+    {
+        type.Property("Phone").AddAttribute(new FormatAttribute(FormatMethods.LinkPhone));
+        type.Property("Fax")?.AddAttribute(new FormatAttribute(FormatMethods.LinkPhone));
+    }
+}
+```
+
+<ul role="list" class="m-4 grid grid-cols-2 gap-x-4 gap-y-8 xl:gap-x-8">
+  <li class="relative">
+    <div class="group block w-full aspect-w-8 aspect-h-10 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
+      <img src="/assets/img/docs/database-first-northwind-format-1.png" alt="" class="object-cover pointer-events-none group-hover:opacity-75">
+    </div>
+    <p class="block text-sm font-medium text-gray-500 pointer-events-none">Default text</p>
+  </li>
+  <li class="relative">
+    <div class="group block w-full aspect-w-8 aspect-h-10 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
+      <img src="/assets/img/docs/database-first-northwind-format-2.png" alt="" class="object-cover pointer-events-none group-hover:opacity-75">
+    </div>
+    <p class="block text-sm font-medium text-gray-500 pointer-events-none">FormatMethods.LinkPhone</p>
+  </li>
+</ul>
+
+The `FormatMethods` reference JavaScript methods registered on the client by default.
+
+```csharp
+  public static class FormatMethods
+  {
+    public const string Currency = "currency";
+    public const string Bytes = "bytes";
+    public const string Icon = "icon";
+    public const string IconRounded = "iconRounded";
+    public const string Attachment = "attachment";
+    public const string Link = "link";
+    public const string LinkEmail = "linkMailTo";
+    public const string LinkPhone = "linkTel";
+    public const string Hidden = "hidden";
+  }
+```
+
+Another example of `FormatMethods` used in Northwind is `FormatMethods.IconRounded` combined with the file upload `PhotoPath`.
+
+```csharp
+TypeFilter = (type, req) =>
+{
+    ...
+    if (type.Name == "Employee" || type.IsCrudCreateOrUpdate("Employee"))
+    {
+        ...
+        type.ReorderProperty("PhotoPath", before: "Title")
+            .AddAttribute(new FormatAttribute(FormatMethods.IconRounded));
+        ...
+    }
+}
+```
+
+`ReorderProperty` is used to change ordering of the properties which impacts the Locode app default column orderings.
+Once the `FormatAttribute` applies the `IconRounded` we get a preview of our file right in the Locode app.
+
+<ul role="list" class="m-4 grid grid-cols-2 gap-x-4 gap-y-8 xl:gap-x-8">
+  <li class="relative">
+    <div class="group block aspect-w-5 aspect-h-10 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
+      <img src="/assets/img/docs/database-first-northwind-format-icon-1.png" alt="" class="object-cover pointer-events-none group-hover:opacity-75">
+    </div>
+    <p class="block text-sm font-medium text-gray-500 pointer-events-none">Default text</p>
+  </li>
+  <li class="relative">
+    <div class="group block aspect-w-5 aspect-h-10 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
+      <img src="/assets/img/docs/database-first-northwind-format-icon-2.png" alt="" class="object-cover pointer-events-none group-hover:opacity-75">
+    </div>
+    <p class="block text-sm font-medium text-gray-500 pointer-events-none">FormatMethods.IconRounded</p>
+  </li>
+</ul>
+
+Images are not original Northwind, paths were migrated to match configured File `FilesUploadFeature` and the following SQL statement.
+
+```sql
+update Employee set PhotoPath = "/profiles/employees/" || Employee.Id || ".jpg"
+```
