@@ -469,7 +469,7 @@ This enables the lookup field UI functionality for the `ReportsTo` property maki
 
 The use of `RefLabel` controls which column on the `RefModel` is to be used as the visual data in the Locode app. The `RefId` is the target `RefModel` column in the foreign key relationship.
 
-### Format column data
+### Format column data and client methods
 
 To make the Locode app UI easier to use, data can be reformatted on the client for query results. For example, `Phone` and 
 `Fax` properties for `Customer`, `Supplier`, and `Shipper` can use the `FormatAttribute` and the `FormatMethods.LinkPhone` option 
@@ -494,13 +494,13 @@ TypeFilter = (type, req) =>
 
 <ul role="list" class="m-4 grid grid-cols-2 gap-x-4 gap-y-8 xl:gap-x-8">
   <li class="relative">
-    <div class="group block w-full aspect-w-8 aspect-h-10 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
+    <div class="group block rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
       <img src="/assets/img/docs/database-first-northwind-format-1.png" alt="" class="object-cover pointer-events-none group-hover:opacity-75">
     </div>
     <p class="block text-sm font-medium text-gray-500 pointer-events-none">Default text</p>
   </li>
   <li class="relative">
-    <div class="group block w-full aspect-w-8 aspect-h-10 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
+    <div class="group block rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
       <img src="/assets/img/docs/database-first-northwind-format-2.png" alt="" class="object-cover pointer-events-none group-hover:opacity-75">
     </div>
     <p class="block text-sm font-medium text-gray-500 pointer-events-none">FormatMethods.LinkPhone</p>
@@ -565,3 +565,41 @@ Images are not original Northwind, paths were migrated to match configured File 
 update Employee set PhotoPath = "/profiles/employees/" || Employee.Id || ".jpg"
 ```
 :::
+
+Other client formatting can be found on attributes like `IntlNumber`,`IntlDateTime` and `IntlRelativeTime`. OrderDetail 
+uses `IntlNumber` with `Currency = NumberCurrency.USD` for UnitPrice and `IntlNumber(NumberStyle.Percent)` for Discount.
+
+```csharp
+TypeFilter = (type, req) =>
+{
+    ...
+    if (type.Name == "Employee" || type.IsCrudCreateOrUpdate("Employee"))
+    {
+        ...
+    }
+    ...
+    else if (type.Name == "OrderDetail")
+    {
+        type.Property("UnitPrice").AddAttribute(new IntlNumber { Currency = NumberCurrency.USD });
+        type.Property("Discount").AddAttribute(new IntlNumber(NumberStyle.Percent));
+    }
+    ...
+}
+```
+
+Giving a much more contextual view of the data in the returning from our services.
+
+<ul role="list" class="m-4 grid grid-cols-2 gap-x-4 gap-y-8 xl:gap-x-8">
+  <li class="relative">
+    <div class="group block rounded-lg focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
+      <img src="/assets/img/docs/database-first-northwind-intl-1.png" alt="" class="object-cover pointer-events-none group-hover:opacity-75">
+    </div>
+    <p class="block text-sm font-medium text-gray-500 pointer-events-none">Default text</p>
+  </li>
+  <li class="relative">
+    <div class="group block rounded-lg focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
+      <img src="/assets/img/docs/database-first-northwind-intl-2.png" alt="" class="object-cover pointer-events-none group-hover:opacity-75">
+    </div>
+    <p class="block text-sm font-medium text-gray-500 pointer-events-none">IntlNumber used</p>
+  </li>
+</ul>
