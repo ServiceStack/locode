@@ -13,7 +13,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v1
         with:
-          node-version: 14
+          node-version: 16
       - name: Clear dist folder
         run: |
           rm -rf www/.vitepress/dist/

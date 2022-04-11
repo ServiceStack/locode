@@ -17,3 +17,4 @@ import Home from './components/Home.vue'
     </template>
   </Layout>
 </template>
+

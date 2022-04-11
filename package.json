@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "vitepress dev www",
-    "build": "vitepress build www",
+    "build": "vitepress build www && vitepress build www",
     "serve": "vitepress serve www"
   },
   "repository": {
@@ -18,14 +18,19 @@
     "url": "https://github.com/ServiceStack/locode/issues"
   },
   "homepage": "https://github.com/ServiceStack/locode#readme",
-  "dependencies": {
-    "vitepress": "^0.22.3"
-  },
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "@tailwindcss/typography": "^0.5.2",
     "autoprefixer": "^10.4.4",
+    "markdown-it-container": "^3.0.0",
     "postcss": "^8.4.12",
-    "tailwindcss": "^3.0.23"
+    "tailwindcss": "^3.0.23",
+    "vitepress": "^0.22.3"
+  },
+  "postcss": {
+    "plugins": {
+      "tailwindcss": {},
+      "autoprefixer": {}
+    }
   }
 }

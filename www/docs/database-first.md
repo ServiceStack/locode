@@ -15,9 +15,19 @@ all the data in the Northwind database with some customizations to improve usabi
 
 ## Create your project
 
-<a href="https://account.servicestack.net/archive/NetCoreTemplates/web?Name=MyLocodeApp" class="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-2xl leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-  MyLocodeApp
-  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 16 16"><path fill="currentColor" d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM6.646 7.646a.5.5 0 1 1 .708.708L5.707 10l1.647 1.646a.5.5 0 0 1-.708.708l-2-2a.5.5 0 0 1 0-.708l2-2zm2.708 0l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L10.293 10L8.646 8.354a.5.5 0 1 1 .708-.708z"/></svg>
+<a href="https://account.servicestack.net/archive/NetCoreTemplates/web?Name=MyLocodeApp" class="flex text-xl hover:no-underline">
+    <div class="bg-white dark:bg-gray-800 px-4 py-4 mr-4 mb-4 rounded-lg shadow-lg text-center items-center justify-center hover:shadow-2xl dark:border-2 dark:border-pink-600 dark:hover:border-blue-600"
+        style="">
+      <div class="text-center font-extrabold flex items-center justify-center mb-2">
+        <div class="text-4xl text-blue-600 my-3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M4 10.4V4a1 1 0 0 1 1-1h5V1h4v2h5a1 1 0 0 1 1 1v6.4l1.086.326a1 1 0 0 1 .682 1.2l-1.516 6.068A4.992 4.992 0 0 1 16 16a4.992 4.992 0 0 1-4 2a4.992 4.992 0 0 1-4-2a4.992 4.992 0 0 1-4.252 1.994l-1.516-6.068a1 1 0 0 1 .682-1.2L4 10.4zm2-.6L12 8l2.754.826l1.809.543L18 9.8V5H6v4.8zM4 20a5.978 5.978 0 0 0 4-1.528A5.978 5.978 0 0 0 12 20a5.978 5.978 0 0 0 4-1.528A5.978 5.978 0 0 0 20 20h2v2h-2a7.963 7.963 0 0 1-4-1.07A7.963 7.963 0 0 1 12 22a7.963 7.963 0 0 1-4-1.07A7.963 7.963 0 0 1 4 22H2v-2h2z"/>
+            </svg>
+        </div>
+      </div>
+      <span class="archive-name px-4 pb-2 text-blue-600 dark:text-indigo-400">MyLocodeApp.zip</span>
+      <div class="count mt-1 text-gray-400 text-sm"></div>
+    </div>
 </a>
 
 Starting with the basic `web` template for a ServiceStack application will provide the basic solution structure 
@@ -51,7 +61,9 @@ We can use the dotnet `x` tool to `mix` in specific database support and AutoQue
 x mix sqlite autoquery
 :::
 
-> Replace `sqlite` with `postgres`, `sqlserver`, or `mysql` or other RDBMS providers.
+::: tip
+Replace `sqlite` with `postgres`, `sqlserver`, or `mysql` or other RDBMS providers
+:::
 
 This command will create two files, `Configure.Db.cs` and `Configure.AutoQuery.cs` and install required NuGet dependencies into the AppHost (MyLocodeApp in the link above) project.
 
@@ -370,7 +382,9 @@ Our sample Northwind database does store `Photo` as a blobbed data. For the demo
 the generated type and repurposing the `PhotoPath` to reference files matching the `Id` of the employee in a registered 
 `FileSystemVirtualFiles` virtual file source.
 
-> If files are stored in the database, to use the `FilesUploadFeature` they would need to be migrated out to a supported storage.
+::: tip
+If files are stored in the database, to use the `FilesUploadFeature` they would need to be migrated out to a supported storage
+:::
 
 ```csharp
 TypeFilter = (type, req) =>
