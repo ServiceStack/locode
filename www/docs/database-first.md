@@ -545,21 +545,23 @@ Once the `FormatAttribute` applies the `IconRounded` we get a preview of our fil
 
 <ul role="list" class="m-4 grid grid-cols-2 gap-x-4 gap-y-8 xl:gap-x-8">
   <li class="relative">
-    <div class="group block aspect-w-5 aspect-h-10 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
+    <div class="group block rounded-lg focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
       <img src="/assets/img/docs/database-first-northwind-format-icon-1.png" alt="" class="object-cover pointer-events-none group-hover:opacity-75">
     </div>
     <p class="block text-sm font-medium text-gray-500 pointer-events-none">Default text</p>
   </li>
   <li class="relative">
-    <div class="group block aspect-w-5 aspect-h-10 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
+    <div class="group block rounded-lg focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
       <img src="/assets/img/docs/database-first-northwind-format-icon-2.png" alt="" class="object-cover pointer-events-none group-hover:opacity-75">
     </div>
     <p class="block text-sm font-medium text-gray-500 pointer-events-none">FormatMethods.IconRounded</p>
   </li>
 </ul>
 
+::: tip
 Images are not original Northwind, paths were migrated to match configured File `FilesUploadFeature` and the following SQL statement.
 
 ```sql
 update Employee set PhotoPath = "/profiles/employees/" || Employee.Id || ".jpg"
 ```
+:::
