@@ -58,6 +58,10 @@ export default {
                         {
                             "text": "API Reference",
                             "link": "/docs/reference"
+                        },
+                        {
+                            "text": "Formatters",
+                            "link": "/docs/formatters"
                         }
                     ]
                 },
@@ -69,10 +73,6 @@ export default {
                         {
                             "text": "Overview",
                             "link": "/docs/autoquery"
-                        },
-                        {
-                            "text": "AutoQuery RDBMS",
-                            "link": "/docs/autoquery-rdbms"
                         }
                     ]
                 }
