@@ -3,3 +3,4 @@
  - [database-first](database-first)
  - [code-first](code-first)
  - [reference](reference)
+ - [formatters](formatters)
