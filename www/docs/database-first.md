@@ -205,7 +205,7 @@ This additional metadata in used by the Locode App to enhance the UI and provide
 
 ### Branding
 
-The logo at the top left can be changed by configuring the `UiFeature` plugin from your AppHost using `ConfigurePlugin&lt;UiFeature&gt;`.
+The logo at the top left can be changed by configuring the `UiFeature` plugin from your AppHost using `ConfigurePlugin<UiFeature>`.
 
 ```csharp
 ConfigurePlugin<UiFeature>(feature => 

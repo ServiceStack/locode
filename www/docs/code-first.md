@@ -111,16 +111,15 @@ public class ConfigureDb : IHostingStartup
             if (db.CreateTableIfNotExists<Booking>())
             {
                 // Seed data
-                db.Insert(new Booking
-                    {
-                        Name = "Test",
-                        Cost = 123,
-                        RoomNumber = 321,
-                        RoomType = RoomType.Queen,
-                        Notes = "Testing more",
-                        BookingStartDate = new DateTime(2022, 1, 1),
-                        BookingEndDate = new DateTime(2022, 1, 5)
-                    });
+                db.Insert(new Booking {
+                    Name = "Test",
+                    Cost = 123,
+                    RoomNumber = 321,
+                    RoomType = RoomType.Queen,
+                    Notes = "Testing more",
+                    BookingStartDate = new DateTime(2022, 1, 1),
+                    BookingEndDate = new DateTime(2022, 1, 5)
+                });
             }
         });
 }
@@ -190,7 +189,7 @@ This additional metadata in used by the Locode App to enhance the UI and provide
 
 ### Branding
 
-The logo at the top left can be changed by configuring the `UiFeature` plugin from your AppHost using `ConfigurePlugin&lt;UiFeature&gt;`.
+The logo at the top left can be changed by configuring the `UiFeature` plugin from your AppHost using `ConfigurePlugin<UiFeature>`.
 
 ```csharp
 ConfigurePlugin<UiFeature>(feature => 
@@ -214,7 +213,7 @@ ConfigurePlugin<UiFeature>(feature =>
   </li>
 </ul>
 
-### Custom table icons
+### Custom Table Icons
 
 Attributes added to your database model can change the visuals in your Locode application. For example, by adding `[Icon]` 
 top of `Booking` specifying either an `Svg` or `Uri` path we can change the icon for the table in left menu and table relationships.
