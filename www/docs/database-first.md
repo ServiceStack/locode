@@ -587,7 +587,11 @@ TypeFilter = (type, req) =>
 }
 ```
 
-Giving a much more contextual view of the data in the returning from our services.
+The `[Intl*]` attributes provide a typed API to utilize JavaScript's rich
+[Intl](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl) object containing the
+namespace for the ECMAScript Internationalization API, which provides number formatting, and date & time formatting.
+
+This can give a much more contextual view of the data in the returning from our services.
 
 <ul role="list" class="m-4 grid grid-cols-2 gap-x-4 gap-y-8 xl:gap-x-8">
   <li class="relative">
