@@ -54,26 +54,46 @@ export default {
                         {
                             "text": "Code-first",
                             "link": "/docs/code-first"
-                        },
-                        {
-                            "text": "API Reference",
-                            "link": "/docs/reference"
-                        },
-                        {
-                            "text": "Formatters",
-                            "link": "/docs/formatters"
                         }
                     ]
                 },
-            ],
-            '/autoquery': [
                 {
-                    "text": "AutoQuery",
+                    "text": "C# Attributes",
                     "children": [
                         {
                             "text": "Overview",
-                            "link": "/docs/autoquery"
-                        }
+                            "link": "/docs/declarative"
+                        },
+                        {
+                            "text": "Appearance & Branding",
+                            "link": "/docs/branding"
+                        },
+                        {
+                            "text": "Format Functions",
+                            "link": "/docs/formatters"
+                        },
+                    ]
+                },
+                {
+                    "text": "Custom HTML/JS",
+                    "children": [
+                        {
+                            "text": "Overview",
+                            "link": "/docs/custom"
+                        },
+                    ]
+                },
+                {
+                    "text": "Features",
+                    "children": [
+                        {
+                            "text": "File Management",
+                            "link": "/docs/files"
+                        },
+                        {
+                            "text": "Auditing",
+                            "link": "/docs/auditing"
+                        },
                     ]
                 }
             ],

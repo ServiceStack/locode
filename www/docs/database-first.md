@@ -203,31 +203,6 @@ appHost.Plugins.Add(new AutoQueryFeature {
 Locode has a number of attributes that can be used to add additional metadata to your services and data model.
 This additional metadata in used by the Locode App to enhance the UI and provide additional functionality.
 
-### Branding
-
-The logo at the top left can be changed by configuring the `UiFeature` plugin from your AppHost using `ConfigurePlugin<UiFeature>`.
-
-```csharp
-ConfigurePlugin<UiFeature>(feature => 
-    feature.Info.BrandIcon = new ImageInfo { Uri = "/logo.svg", Cls = "w-8 h-8 mr-1" });
-```
-
-`Uri` is the path of your own logo from the `wwwroot` folder and the `Cls` value is the CSS classes applied to the same element.
-
-<ul role="list" class="m-4 grid grid-cols-2 gap-x-4 gap-y-8 xl:gap-x-8">
-  <li class="relative">
-    <div class="group block w-full aspect-w-10 aspect-h-7 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
-      <img src="/assets/img/docs/database-first-northwind-branding1.png" alt="" class="object-cover pointer-events-none group-hover:opacity-75">
-    </div>
-    <p class="block text-sm font-medium text-gray-500 pointer-events-none">Default</p>
-  </li>
-  <li class="relative">
-    <div class="group block w-full aspect-w-10 aspect-h-7 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
-      <img src="/assets/img/docs/database-first-northwind-branding2.png" alt="" class="object-cover pointer-events-none group-hover:opacity-75">
-    </div>
-    <p class="block text-sm font-medium text-gray-500 pointer-events-none">Custom branding</p>
-  </li>
-</ul>
 
 ### Adding attributes at runtime
 
@@ -238,236 +213,6 @@ The `ServiceFilter` and `TypeFilter` properties on `GenerateCrudServices` are `A
 The `ServiceFilter` is called with every Service Operation when generating metadata for your services.
 Here we can add attributes to the generated request DTOs using the `AddAttributes` or `AddAttributeIfNotExists` method.
 
-### Grouping your services with `Tag`
-
-To group the Northwind services under the same `Tag` name for the left menu in Locode, we can use the `Tag` attribute.
-
-```csharp
-GenerateCrudServices = new GenerateCrudServices {
-    AutoRegister = true,
-    ServiceFilter = (op, req) => {
-        // Annotate all Auto generated Request DTOs with [Tag("Northwind")] attribute
-        op.Request.AddAttributeIfNotExists(new TagAttribute("Northwind"));
-    },
-```
-
-Instead of `Tables` we can now see our `Northwind` tag in the Locode app UI.
-
-<ul role="list" class="m-4 grid grid-cols-2 gap-x-4 gap-y-8 xl:gap-x-8">
-  <li class="relative">
-    <div class="group block w-full aspect-w-10 aspect-h-7 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
-      <img src="/assets/img/docs/database-first-northwind-branding2.png" alt="" class="object-cover pointer-events-none group-hover:opacity-75">
-    </div>
-    <p class="block text-sm font-medium text-gray-500 pointer-events-none">Default "Tables"</p>
-  </li>
-  <li class="relative">
-    <div class="group block w-full aspect-w-10 aspect-h-7 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
-      <img src="/assets/img/docs/database-first-northwind-tags.png" alt="" class="object-cover pointer-events-none group-hover:opacity-75">
-    </div>
-    <p class="block text-sm font-medium text-gray-500 pointer-events-none">Custom Tag</p>
-  </li>
-</ul>
-
-As more unique `Tag` names are added, additional drop down menus will be created to group your services together.
-
-### Custom table `Icon`
-
-On database model classes, the `Icon` attribute can be used with a `Uri` or `Svg` to style the table in the left menu and when 
-lookup data is displayed. For example, if we use the `TypeFilter` to access the data model types, we can apply the `Icon` attribute dynamically
-to `Order` it will impact the tables that reference `Order`.
-
-```csharp
-TypeFilter = (type, req) =>
-{
-    if (Icons.TryGetValue(type.Name, out var icon))
-        type.AddAttribute(new IconAttribute { Svg = Svg.Create(icon) });
-    ...
-}
-
-public static Dictionary<string, string> Icons { get; } = new()
-{
-    ["Order"] =
-        "<path fill='currentColor' ...",
-};
-```
-
-<ul role="list" class="m-4 grid grid-cols-1 xl:grid-cols-2 gap-x-4 gap-y-8 xl:gap-x-8">
-  <li class="relative">
-    <div class="group block w-full aspect-w-13 aspect-h-6 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
-      <img src="/assets/img/docs/database-first-northwind-icons-default.png" alt="" class="object-cover pointer-events-none group-hover:opacity-75">
-    </div>
-    <p class="block text-sm font-medium text-gray-500 pointer-events-none">Default Icon</p>
-  </li>
-  <li class="relative">
-    <div class="group block w-full aspect-w-13 aspect-h-6  rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
-      <img src="/assets/img/docs/database-first-northwind-icons-custom.png" alt="" class="object-cover pointer-events-none group-hover:opacity-75">
-    </div>
-    <p class="block text-sm font-medium text-gray-500 pointer-events-none">Custom Icon</p>
-  </li>
-</ul>
-
-### Managed Files Uploads
-
-A high level feature that integrates with Locode is the `FileUploadFeature` plugin which is combined with `VirtualFileSource`.
-This enables a way to associate a file path that can be stored in your custom tables which is mapped to a `VirtualFileSource`,
-which means the uploaded files don't live in the database itself taking up a lot of room, the database only stores the reference.
-
-```csharp
-var wwwrootVfs = GetVirtualFileSource<FileSystemVirtualFiles>();
-Plugins.Add(new FilesUploadFeature(
-    new UploadLocation("employees", wwwrootVfs, allowExtensions: FileExt.WebImages,
-        writeAccessRole: RoleNames.AllowAnon,
-        resolvePath: ctx => $"/profiles/employees/{ctx.Dto.GetId()}.{ctx.FileExtension}")));
-```
-
-The `UploadLocation` is a named mapping which is then referenced on the data model column which stores the *path* only.
-This reference is made using the `UploadTo` attribute specifying the matching name, eg "employees".
-
-The `TypeFilter` also fires for request and response DTO types, and we can find matching request DTO types from the 
-desired model name using `IsCrudCreateOrUpdate("Employee")`. This is a dynamic way of applying attributes to our 
-database model `Employee` and related `CreateEmployee`/`UpdateEmployee` which can be more clearly represented in 
-a code-first way using the following 3 classes. 
-
-```csharp
-// Generated database model
-public class Employee
-{
-    ...
-    [Format(FormatMethods.IconRounded)]
-    public string PhotoPath { get;set; }
-    ...
-}
-
-// Generated Request DTO for create
-public class CreateEmployee : ICreateDb<Employee>, IReturn<IdResponse>
-{
-    ...
-    [Input(Type=Input.Types.File)]
-    [UploadTo("employees")]
-    public string PhotoPath { get;set; }
-}
-
-// Generated Request DTO for create
-public class UpdateEmployee : IPatchDb<Employee>, IReturn<IdResponse>
-{
-    ...
-    [Input(Type=Input.Types.File)]
-    [UploadTo("employees")]
-    public string PhotoPath { get;set; }
-}
-```
-
-This is done dynamically using the following code found in the `Northwind` Locode demo.
-
-```csharp
-```csharp
-TypeFilter = (type, req) =>
-{
-    ...
-    if (type.Name == "Employee" || type.IsCrudCreateOrUpdate("Employee"))
-    {
-        ...
-        if (type.IsCrud())
-        {
-            type.Property("PhotoPath")
-                .AddAttribute(new InputAttribute { Type = Input.Types.File })
-                .AddAttribute(new UploadToAttribute("employees"));
-        }
-    }
-    ...
-}
-```
-
-Our sample Northwind database does store `Photo` as a blobbed data. For the demo, we are removing `Photo` column from 
-the generated type and repurposing the `PhotoPath` to reference files matching the `Id` of the employee in a registered 
-`FileSystemVirtualFiles` virtual file source.
-
-::: tip
-If files are stored in the database, to use the `FilesUploadFeature` they would need to be migrated out to a supported storage
-:::
-
-```csharp
-TypeFilter = (type, req) =>
-{
-    ...
-    if (type.Name == "Employee" || type.IsCrudCreateOrUpdate("Employee"))
-    {
-        type.Properties.RemoveAll(x => x.Name == "Photo");
-        ...
-    }
-    ...
-}
-```
-
-### Changing field `Input` controls
-
-The `PhotoPath` and `Notes` properties on the `Epmployee` table also have custom `InputAttribute` applied to change the Locode app HTML input type.
-Since the `PhotoPath` is related to a file upload and use of `UploadTo`, we want to have a way for the Locode client to upload files.
-`[Input(Type=Input.Types.File)]` adds metadata so the Locode app knows to use a file upload control for this field. The `Notes` property 
-contains more long form text, so instead of the standard one line `text` input, an `Input.Types.Textarea` can be used.
-
-<ul role="list" class="m-4 grid grid-cols-1 xl:grid-cols-2 gap-x-4 gap-y-8 xl:gap-x-8">
-  <li class="relative">
-    <div class="group block w-full aspect-w-13 aspect-h-6 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
-      <img src="/assets/img/docs/database-first-northwind-input-1.png" alt="" class="object-cover pointer-events-none group-hover:opacity-75">
-    </div>
-    <p class="block text-sm font-medium text-gray-500 pointer-events-none">Without `Input`</p>
-  </li>
-  <li class="relative">
-    <div class="group block w-full aspect-w-13 aspect-h-6  rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
-      <img src="/assets/img/docs/database-first-northwind-input-2.png" alt="" class="object-cover pointer-events-none group-hover:opacity-75">
-    </div>
-    <p class="block text-sm font-medium text-gray-500 pointer-events-none">Custom `Input`</p>
-  </li>
-</ul>
-
-### Lookup tables and appearance
-
-With the database-first approach, foreign ke columns and table relationships are reflected in the Locode app with the use of 
-look up tables when created, editing or navigating between services. In the Northwind example, this can be seen in services like 
-`OrderDetails`, `Order` and `Product`. If the database doesn't have this relationship in the schema but you need 
-to add it in Locode app, the `Ref` attribute can be ued. 
-
-```
-TypeFilter = (type, req) =>
-{
-    ...
-    if (type.Name == "Employee" || type.IsCrudCreateOrUpdate("Employee"))
-    {
-        ...
-        if (type.IsCrud())
-        {
-            ...
-        }
-        else if (type.Name == "Employee")
-        {
-            type.Property("ReportsTo").AddAttribute(
-                new RefAttribute { Model = "Employee", RefId = "Id", RefLabel = "LastName" });
-        }
-    }
-}
-```
-
-<ul role="list" class="m-4 grid grid-cols-1 xl:grid-cols-2 gap-x-4 gap-y-8 xl:gap-x-8">
-  <li class="relative">
-    <div class="group block w-full aspect-w-13 aspect-h-6 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
-      <img src="/assets/img/docs/database-first-northwind-input-1.png" alt="" class="object-cover pointer-events-none group-hover:opacity-75">
-    </div>
-    <p class="block text-sm font-medium text-gray-500 pointer-events-none">Without `Input`</p>
-  </li>
-  <li class="relative">
-    <div class="group block w-full aspect-w-13 aspect-h-6  rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
-      <img src="/assets/img/docs/database-first-northwind-input-2.png" alt="" class="object-cover pointer-events-none group-hover:opacity-75">
-    </div>
-    <p class="block text-sm font-medium text-gray-500 pointer-events-none">Custom `Input`</p>
-  </li>
-</ul>
-
-This enables the lookup field UI functionality for the `ReportsTo` property making it is easy to select the correct `Id` to be stored in the same column.
-
-<img src="/assets/img/docs/locode-lookup.gif" alt="" class="object-cover pointer-events-none group-hover:opacity-75">
-
-The use of `RefLabel` controls which column on the `RefModel` is to be used as the visual data in the Locode app. The `RefId` is the target `RefModel` column in the foreign key relationship.
 
 ### Format column data and client methods
 
@@ -492,26 +237,30 @@ TypeFilter = (type, req) =>
 }
 ```
 
-<ul role="list" class="m-4 grid grid-cols-2 gap-x-4 gap-y-8 xl:gap-x-8">
-  <li class="relative">
-    <div class="group block rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
-      <img src="/assets/img/docs/database-first-northwind-format-1.png" alt="" class="object-cover pointer-events-none group-hover:opacity-75">
-    </div>
-    <p class="block text-sm font-medium text-gray-500 pointer-events-none">Default text</p>
-  </li>
-  <li class="relative">
-    <div class="group block rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
-      <img src="/assets/img/docs/database-first-northwind-format-2.png" alt="" class="object-cover pointer-events-none group-hover:opacity-75">
-    </div>
-    <p class="block text-sm font-medium text-gray-500 pointer-events-none">FormatMethods.LinkPhone</p>
-  </li>
+<ul role="list" class="grid grid-cols-1 gap-6 grid-cols-1 sm:grid-cols-2">
+    <li class="col-span-1 flex flex-col text-center items-center bg-white rounded-lg shadow divide-y divide-gray-200">
+        <div class="flex-1 flex flex-col p-4 sm:p-8">
+            <h4 class="block text-xl font-medium text-gray-500 pointer-events-none">Default</h4>
+            <div class="group block rounded-lg focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
+                <img src="/assets/img/docs/database-first-northwind-format-1.png" alt="">
+            </div>
+        </div>
+    </li>
+    <li class="col-span-1 flex flex-col text-center items-center bg-white rounded-lg shadow divide-y divide-gray-200">
+        <div class="flex-1 flex flex-col p-4 sm:p-8">
+            <h4 class="block text-xl font-medium text-gray-500 pointer-events-none">FormatMethods.LinkPhone</h4>
+            <div class="group block rounded-lg focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
+                <img src="/assets/img/docs/database-first-northwind-format-2.png" alt="">
+            </div>
+        </div>
+    </li>
 </ul>
 
 The `FormatMethods` reference JavaScript methods registered on the client by default.
 
 ```csharp
-  public static class FormatMethods
-  {
+public static class FormatMethods
+{
     public const string Currency = "currency";
     public const string Bytes = "bytes";
     public const string Icon = "icon";
@@ -521,7 +270,7 @@ The `FormatMethods` reference JavaScript methods registered on the client by def
     public const string LinkEmail = "linkMailTo";
     public const string LinkPhone = "linkTel";
     public const string Hidden = "hidden";
-  }
+}
 ```
 
 Another example of `FormatMethods` used in Northwind is `FormatMethods.IconRounded` combined with the file upload `PhotoPath`.
@@ -543,19 +292,23 @@ TypeFilter = (type, req) =>
 `ReorderProperty` is used to change ordering of the properties which impacts the Locode app default column orderings.
 Once the `FormatAttribute` applies the `IconRounded` we get a preview of our file right in the Locode app.
 
-<ul role="list" class="m-4 grid grid-cols-2 gap-x-4 gap-y-8 xl:gap-x-8">
-  <li class="relative">
-    <div class="group block rounded-lg focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
-      <img src="/assets/img/docs/database-first-northwind-format-icon-1.png" alt="" class="object-cover pointer-events-none group-hover:opacity-75">
-    </div>
-    <p class="block text-sm font-medium text-gray-500 pointer-events-none">Default text</p>
-  </li>
-  <li class="relative">
-    <div class="group block rounded-lg focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
-      <img src="/assets/img/docs/database-first-northwind-format-icon-2.png" alt="" class="object-cover pointer-events-none group-hover:opacity-75">
-    </div>
-    <p class="block text-sm font-medium text-gray-500 pointer-events-none">FormatMethods.IconRounded</p>
-  </li>
+<ul role="list" class="grid grid-cols-1 gap-6 grid-cols-1 sm:grid-cols-2">
+    <li class="col-span-1 flex flex-col text-center items-center bg-white rounded-lg shadow divide-y divide-gray-200">
+        <div class="flex-1 flex flex-col p-4 sm:p-8">
+            <h4 class="block text-xl font-medium text-gray-500 pointer-events-none">Default text</h4>
+            <div class="group block rounded-lg focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
+              <img src="/assets/img/docs/database-first-northwind-format-icon-1.png" alt="">
+            </div>
+        </div>
+    </li>
+    <li class="col-span-1 flex flex-col text-center items-center bg-white rounded-lg shadow divide-y divide-gray-200">
+        <div class="flex-1 flex flex-col p-4 sm:p-8">
+            <h4 class="block text-xl font-medium text-gray-500 pointer-events-none">FormatMethods.IconRounded</h4>
+            <div class="group block rounded-lg focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
+              <img src="/assets/img/docs/database-first-northwind-format-icon-2.png" alt="">
+            </div>
+        </div>
+    </li>
 </ul>
 
 ::: tip
@@ -593,17 +346,22 @@ namespace for the ECMAScript Internationalization API, which provides number for
 
 This can give a much more contextual view of the data in the returning from our services.
 
-<ul role="list" class="m-4 grid grid-cols-2 gap-x-4 gap-y-8 xl:gap-x-8">
-  <li class="relative">
-    <div class="group block rounded-lg focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
-      <img src="/assets/img/docs/database-first-northwind-intl-1.png" alt="" class="object-cover pointer-events-none group-hover:opacity-75">
-    </div>
-    <p class="block text-sm font-medium text-gray-500 pointer-events-none">Default text</p>
-  </li>
-  <li class="relative">
-    <div class="group block rounded-lg focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
-      <img src="/assets/img/docs/database-first-northwind-intl-2.png" alt="" class="object-cover pointer-events-none group-hover:opacity-75">
-    </div>
-    <p class="block text-sm font-medium text-gray-500 pointer-events-none">IntlNumber used</p>
-  </li>
+
+<ul role="list" class="p-0 grid grid-cols-1 gap-6 grid-cols-1 sm:grid-cols-2">
+    <li class="col-span-1 flex flex-col text-center items-center bg-white rounded-lg shadow divide-y divide-gray-200">
+        <div class="flex-1 flex flex-col p-4">
+            <h4 class="block text-xl font-medium text-gray-500 pointer-events-none">Default</h4>
+            <div class="group block rounded-lg focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
+                <img src="/assets/img/docs/database-first-northwind-intl-1.png" alt="">
+            </div>
+        </div>
+    </li>
+    <li class="col-span-1 flex flex-col text-center items-center bg-white rounded-lg shadow divide-y divide-gray-200">
+        <div class="flex-1 flex flex-col p-4">
+            <h4 class="block text-xl font-medium text-gray-500 pointer-events-none">IntlNumber</h4>
+            <div class="group block rounded-lg focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
+                <img src="/assets/img/docs/database-first-northwind-intl-2.png" alt="">
+            </div>
+        </div>
+    </li>
 </ul>

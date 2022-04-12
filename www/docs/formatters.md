@@ -71,7 +71,7 @@ function stylize(val, options) {
 
 Which makes use of [JSDoc](https://jsdoc.app) and
 [TypeScript's JSDoc](https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html)
-support to [enable rich static analysis](reference).
+support to [enable rich static analysis](custom).
 
 ## Format Attribute
 

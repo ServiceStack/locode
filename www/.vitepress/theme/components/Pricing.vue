@@ -173,10 +173,10 @@
               <h3 class="inline-flex px-4 py-1 rounded-full text-sm font-semibold tracking-wide uppercase bg-white text-gray-800">FREE</h3>
             </div>
             <div class="mt-4 text-lg text-gray-600">
-              ServiceStack is free for
+              ServiceStack is FREE for
               <a class="text-xl text-indigo-600" href="https://servicestack.net/free">Individuals and collaborative OSS projects</a>
               or small apps that fit within the
-              <a class="text-xl text-indigo-600" href="https://servicestack.net/download#free-quotas">Free Usage Quotas</a>.
+              <a class="text-xl text-indigo-600" href="https://servicestack.net/download#free-quotas">Free Usage Quotas</a>
             </div>
           </div>
           <div class="mt-6 rounded-md shadow lg:mt-0 lg:ml-10 lg:flex-shrink-0">

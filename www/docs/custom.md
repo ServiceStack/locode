@@ -1,4 +1,17 @@
-# API Reference
+# Custom Locode Apps
+
+When you need to go beyond the declarative and programmatic C# 
+
+###  
+
+```
+  /wwwroot/modules/locode
+      /custom.js
+      /custom.css
+      /custom.html
+```
+
+## API Reference
 
 Type definitions for functionality available in ServiceStack UI's
 
