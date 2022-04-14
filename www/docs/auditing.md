@@ -1,7 +1,7 @@
 ### Auditable services
 
 A feature we can apply to the `Booking` example, is to add the ability to track operations on the API and keep basic audit information on the Booking table itself.
-This can be done by inheriting from `AuditBase`, attributing each service request DTO with a relevant `AutoApply` behavior and registering the `OrmLiteCrudEvents` with
+This can be done by inheriting from `AuditBase`, attributing each service Request DTO with a relevant `AutoApply` behavior and registering the `OrmLiteCrudEvents` with
 the application IoC container.
 
 ```csharp

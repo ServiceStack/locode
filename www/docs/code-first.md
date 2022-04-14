@@ -174,7 +174,7 @@ Clicking on our `Booking` services on the left-hand menu utilizes the `QueryBook
 
 ![](../public/assets/img/docs/code-first-bookings-mvp-2.png)
 
-Using the `New Booking` button gives us a metadata driven form derived from the properties of the `CreateBooking` request DTO.
+Using the `New Booking` button gives us a metadata driven form derived from the properties of the `CreateBooking` Request DTO.
 
 ![](../public/assets/img/docs/code-first-bookings-mvp-3.png)
 

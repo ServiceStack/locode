@@ -58,14 +58,14 @@ export default {
                     ]
                 },
                 {
-                    "text": "C# Attributes",
+                    "text": "C# Development Model",
                     "children": [
                         {
                             "text": "Overview",
                             "link": "/docs/declarative"
                         },
                         {
-                            "text": "Appearance & Branding",
+                            "text": "Branding & Appearance",
                             "link": "/docs/branding"
                         },
                         {

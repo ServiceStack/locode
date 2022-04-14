@@ -211,7 +211,7 @@ Locode uses a number of attributes on your data model type (related to each tabl
 
 The `ServiceFilter` and `TypeFilter` properties on `GenerateCrudServices` are `Action`s you can override run at startup.
 The `ServiceFilter` is called with every Service Operation when generating metadata for your services.
-Here we can add attributes to the generated request DTOs using the `AddAttributes` or `AddAttributeIfNotExists` method.
+Here we can add attributes to the generated Request DTOs using the `AddAttributes` or `AddAttributeIfNotExists` method.
 
 
 ### Format column data and client methods
@@ -237,19 +237,19 @@ TypeFilter = (type, req) =>
 }
 ```
 
-<ul role="list" class="grid grid-cols-1 gap-6 grid-cols-1 sm:grid-cols-2">
-    <li class="col-span-1 flex flex-col text-center items-center bg-white rounded-lg shadow divide-y divide-gray-200">
-        <div class="flex-1 flex flex-col p-4 sm:p-8">
-            <h4 class="block text-xl font-medium text-gray-500 pointer-events-none">Default</h4>
-            <div class="group block rounded-lg focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
+<ul class="my-8 grid gap-4 sm:grid-cols-2">
+    <li class="rounded-lg m-0 col-span-1 flex flex-col text-center items-center bg-white shadow divide-y divide-gray-200">
+        <div class="flex-1 flex flex-col px-4 mt-4">
+            <div class="mt-4 p-0 text-xl font-medium text-gray-500">Default</div>
+            <div class="rounded-lg focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
                 <img src="/assets/img/docs/database-first-northwind-format-1.png" alt="">
             </div>
         </div>
     </li>
-    <li class="col-span-1 flex flex-col text-center items-center bg-white rounded-lg shadow divide-y divide-gray-200">
-        <div class="flex-1 flex flex-col p-4 sm:p-8">
-            <h4 class="block text-xl font-medium text-gray-500 pointer-events-none">FormatMethods.LinkPhone</h4>
-            <div class="group block rounded-lg focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
+    <li class="rounded-lg m-0 col-span-1 flex flex-col text-center items-center bg-white shadow divide-y divide-gray-200">
+        <div class="flex-1 flex flex-col px-4 mt-4">
+            <div class="mt-4 p-0 text-xl font-medium text-gray-500">FormatMethods.LinkPhone</div>
+            <div class="rounded-lg focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
                 <img src="/assets/img/docs/database-first-northwind-format-2.png" alt="">
             </div>
         </div>
@@ -292,20 +292,20 @@ TypeFilter = (type, req) =>
 `ReorderProperty` is used to change ordering of the properties which impacts the Locode app default column orderings.
 Once the `FormatAttribute` applies the `IconRounded` we get a preview of our file right in the Locode app.
 
-<ul role="list" class="grid grid-cols-1 gap-6 grid-cols-1 sm:grid-cols-2">
-    <li class="col-span-1 flex flex-col text-center items-center bg-white rounded-lg shadow divide-y divide-gray-200">
-        <div class="flex-1 flex flex-col p-4 sm:p-8">
-            <h4 class="block text-xl font-medium text-gray-500 pointer-events-none">Default text</h4>
-            <div class="group block rounded-lg focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
-              <img src="/assets/img/docs/database-first-northwind-format-icon-1.png" alt="">
+<ul class="grid gap-4 sm:grid-cols-2">
+    <li class="rounded-lg m-0 col-span-1 flex flex-col text-center items-center bg-white shadow divide-y divide-gray-200">
+        <div class="flex-1 flex flex-col px-4 mt-4">
+            <div class="mt-4 p-0 text-xl font-medium text-gray-500">Default</div>
+            <div class="rounded-lg focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
+                <img src="/assets/img/docs/database-first-northwind-format-icon-1.png" alt="">
             </div>
         </div>
     </li>
-    <li class="col-span-1 flex flex-col text-center items-center bg-white rounded-lg shadow divide-y divide-gray-200">
-        <div class="flex-1 flex flex-col p-4 sm:p-8">
-            <h4 class="block text-xl font-medium text-gray-500 pointer-events-none">FormatMethods.IconRounded</h4>
-            <div class="group block rounded-lg focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
-              <img src="/assets/img/docs/database-first-northwind-format-icon-2.png" alt="">
+    <li class="rounded-lg m-0 col-span-1 flex flex-col text-center items-center bg-white shadow divide-y divide-gray-200">
+        <div class="flex-1 flex flex-col px-4 mt-4">
+            <div class="mt-4 p-0 text-xl font-medium text-gray-500">FormatMethods.IconRounded</div>
+            <div class="rounded-lg focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
+                <img src="/assets/img/docs/database-first-northwind-format-icon-2.png" alt="">
             </div>
         </div>
     </li>
@@ -340,26 +340,25 @@ TypeFilter = (type, req) =>
 }
 ```
 
-The `[Intl*]` attributes provide a typed API to utilize JavaScript's rich
+The `[Intl*]` attributes provide a typed API to utilize JavaScript's rich 
 [Intl](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl) object containing the
 namespace for the ECMAScript Internationalization API, which provides number formatting, and date & time formatting.
 
 This can give a much more contextual view of the data in the returning from our services.
 
-
-<ul role="list" class="p-0 grid grid-cols-1 gap-6 grid-cols-1 sm:grid-cols-2">
-    <li class="col-span-1 flex flex-col text-center items-center bg-white rounded-lg shadow divide-y divide-gray-200">
-        <div class="flex-1 flex flex-col p-4">
-            <h4 class="block text-xl font-medium text-gray-500 pointer-events-none">Default</h4>
-            <div class="group block rounded-lg focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
+<ul class="grid gap-4 sm:grid-cols-2">
+    <li class="rounded-lg m-0 col-span-1 flex flex-col text-center items-center bg-white shadow divide-y divide-gray-200">
+        <div class="flex-1 flex flex-col px-4 mt-4">
+            <div class="mt-4 p-0 text-xl font-medium text-gray-500">Default</div>
+            <div class="rounded-lg focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
                 <img src="/assets/img/docs/database-first-northwind-intl-1.png" alt="">
             </div>
         </div>
     </li>
-    <li class="col-span-1 flex flex-col text-center items-center bg-white rounded-lg shadow divide-y divide-gray-200">
-        <div class="flex-1 flex flex-col p-4">
-            <h4 class="block text-xl font-medium text-gray-500 pointer-events-none">IntlNumber</h4>
-            <div class="group block rounded-lg focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
+    <li class="rounded-lg m-0 col-span-1 flex flex-col text-center items-center bg-white shadow divide-y divide-gray-200">
+        <div class="flex-1 flex flex-col px-4 mt-4">
+            <div class="mt-4 p-0 text-xl font-medium text-gray-500">IntlNumber</div>
+            <div class="rounded-lg focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
                 <img src="/assets/img/docs/database-first-northwind-intl-2.png" alt="">
             </div>
         </div>

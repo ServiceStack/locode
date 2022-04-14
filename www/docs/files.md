@@ -16,7 +16,7 @@ Plugins.Add(new FilesUploadFeature(
 The `UploadLocation` is a named mapping which is then referenced on the data model column which stores the *path* only.
 This reference is made using the `UploadTo` attribute specifying the matching name, eg "employees".
 
-The `TypeFilter` also fires for request and response DTO types, and we can find matching request DTO types from the
+The `TypeFilter` also fires for request and response DTO types, and we can find matching Request DTO types from the
 desired model name using `IsCrudCreateOrUpdate("Employee")`. This is a dynamic way of applying attributes to our
 database model `Employee` and related `CreateEmployee`/`UpdateEmployee` which can be more clearly represented in
 a code-first way using the following 3 classes.
