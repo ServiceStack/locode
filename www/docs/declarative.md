@@ -18,57 +18,6 @@ C# API **DTOs** with the rich functionality available in ServiceStack's Attribut
 
  - [Configure.AppHost.cs](https://github.com/NetCoreApps/NorthwindAuto/blob/master/Configure.AppHost.cs)
 
-When you've started with a [Database First](/docs/database-first) development model the Types are generated and only
-exist at runtime which typically would prohibit them from being annotated with C# attributes, however
-[AutoQuery AutoGen's](https://docs.servicestack.net/autoquery-autogen) `ServiceFilter` and `TypeFilter` lets you
-customize
-
-```csharp
-Plugins.Add(new AutoQueryFeature {
-    GenerateCrudServices = new GenerateCrudServices {
-        AutoRegister = true,
-        ServiceFilter = (op, req) => {
-            // Annotate all Auto generated Request DTOs with [Tag("Northwind")] attribute
-            op.Request.AddAttributeIfNotExists(new TagAttribute("Northwind"));
-        },
-        TypeFilter = (type, req) =>
-        {
-            if (Icons.TryGetValue(type.Name, out var icon))
-                type.AddAttribute(new IconAttribute { Svg = Svg.Create(icon) });
-
-            if (type.IsCrudCreateOrUpdate("Employee"))
-            {
-                type.Properties.RemoveAll(x => x.Name == "Photo");
-                type.ReorderProperty("PhotoPath", before: "Title")
-                    .AddAttribute(new FormatAttribute(FormatMethods.IconRounded));
-                type.ReorderProperty("ReportsTo", after: "Title");
-                if (type.IsCrud())
-                {
-                    type.Property("PhotoPath")
-                        .AddAttribute(new InputAttribute { Type = Input.Types.File })
-                        .AddAttribute(new UploadToAttribute("employees"));
-                    type.Property("Notes")
-                        .AddAttribute(new InputAttribute { Type = Input.Types.Textarea });
-                }
-            }
-            else if (type.Name == "Order")
-            {
-                type.Properties.Where(x => x.Name.EndsWith("Date")).Each(p =>
-                    p.AddAttribute(new IntlDateTime(DateStyle.Medium)));
-                type.Property("Freight").AddAttribute(new IntlNumber { Currency = NumberCurrency.USD });
-                type.Property("ShipVia").AddAttribute(
-                    new RefAttribute { Model = "Shipper", RefId = "Id", RefLabel = "CompanyName" });
-            }
-            else if (type.Name is "Customer" or "Supplier" or "Shipper")
-            {
-                type.Property("Phone").AddAttribute(new FormatAttribute(FormatMethods.LinkPhone));
-                type.Property("Fax")?.AddAttribute(new FormatAttribute(FormatMethods.LinkPhone));
-            }
-        },
-    },
-});
-```
-
 ## Customize Schema with OrmLite Attributes
 
 ## Auth & Validation Rules

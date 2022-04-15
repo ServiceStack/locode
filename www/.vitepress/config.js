@@ -61,7 +61,7 @@ export default {
                     "text": "C# Development Model",
                     "children": [
                         {
-                            "text": "Overview",
+                            "text": "Declarative Attributes",
                             "link": "/docs/declarative"
                         },
                         {
