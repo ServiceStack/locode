@@ -35,8 +35,6 @@ export default {
         //lastUpdated: false,
         nav: [
             { link:"/docs/", text:"Docs" },
-            { link:"https://api.locode.dev/modules/shared.html", text:"API Reference" },
-            { link:'https://forums.servicestack.net', text:'Forums' },
         ],
         sidebar: {
             '/': [

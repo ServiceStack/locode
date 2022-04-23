@@ -5,6 +5,7 @@ import { useTransitions } from "../src/transitions"
 let transition = useTransitions({topNav:true})
 let homeMenu = nav => [
   ...nav,
+  { link:'https://forums.servicestack.net', text:'Forums' },
   { link:'https://servicestack.net/free', text:'Free' },
   { link:'https://servicestack.net/trial', text:'Trial' },
   { link:"https://servicestack.net/pricing", text:"Pricing" },
