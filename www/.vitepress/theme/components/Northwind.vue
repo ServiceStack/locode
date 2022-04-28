@@ -1,20 +1,61 @@
 <template>
 <div class="relative bg-gray-50 py-16 overflow-hidden sm:pt-24 lg:pt-32">
-  <div class="mx-auto max-w-md px-4 text-center sm:px-6 sm:max-w-3xl lg:px-8 lg:max-w-7xl">
-    <div>
-      <p class="mt-2 text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">Database-first Example Locode App</p>
-      <p class="mt-5 max-w-prose mx-auto text-xl text-gray-500">
-        To demonstrate a database-first development workflow we've enabled
-        <a class="text-indigo-600" href="https://docs.servicestack.net/autoquery-autogen">AutoGen</a> on the
-        <b>Northwind</b> sample database to generate
-        <a class="text-indigo-600" href="https://docs.servicestack.net/autoquery-rdbms">AutoQuery</a>
-        &amp;
-        <a class="text-indigo-600" href="https://docs.servicestack.net/autoquery-crud">CRUD</a>
-        APIs whose capabilities are used to power the custom Northwind Locode App
-      </p>
+
+  <div>
+    <div class="relative overflow-hidden">
+      <div class="absolute inset-y-0 h-full w-full" aria-hidden="true">
+        <div class="relative h-full">
+          <svg class="absolute right-full transform translate-y-1/3 translate-x-1/4 md:translate-y-1/2 sm:translate-x-1/2 lg:translate-x-full" width="404" height="784" fill="none" viewBox="0 0 404 784">
+            <defs>
+              <pattern id="e229dbec-10e9-49ee-8ec3-0286ca089edf" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                <rect x="0" y="0" width="4" height="4" class="text-gray-200" fill="currentColor" />
+              </pattern>
+            </defs>
+            <rect width="404" height="784" fill="url(#e229dbec-10e9-49ee-8ec3-0286ca089edf)" />
+          </svg>
+          <svg class="absolute left-full transform -translate-y-3/4 -translate-x-1/4 sm:-translate-x-1/2 md:-translate-y-1/2 lg:-translate-x-3/4" width="404" height="784" fill="none" viewBox="0 0 404 784">
+            <defs>
+              <pattern id="d2a68204-c383-44b1-b99f-42ccff4e5365" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                <rect x="0" y="0" width="4" height="4" class="text-gray-200" fill="currentColor" />
+              </pattern>
+            </defs>
+            <rect width="404" height="784" fill="url(#d2a68204-c383-44b1-b99f-42ccff4e5365)" />
+          </svg>
+        </div>
+      </div>
+
+      <div class="mx-auto max-w-md px-4 text-center sm:px-6 sm:max-w-3xl lg:px-8 lg:max-w-7xl">
+        <div>
+          <p class="mt-2 text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">Database-first Example Locode App</p>
+          <p class="mt-5 max-w-prose mx-auto text-xl text-gray-500">
+            To demonstrate a database-first development workflow we've enabled
+            <a class="text-indigo-600" href="https://docs.servicestack.net/autoquery-autogen">AutoGen</a> on the
+            <b>Northwind</b> sample database to generate
+            <a class="text-indigo-600" href="https://docs.servicestack.net/autoquery-rdbms">AutoQuery</a>
+            &amp;
+            <a class="text-indigo-600" href="https://docs.servicestack.net/autoquery-crud">CRUD</a>
+            APIs whose capabilities are used to power the custom Northwind Locode App
+          </p>
+        </div>
+      </div>
+
+      <div class="relative mt-4">
+        <div class="absolute inset-0 flex flex-col" aria-hidden="true">
+          <div class="flex-1"></div>
+          <div class="flex-1 w-full bg-gray-900"></div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 pb-40">
+          <div class="aspect-w-16 aspect-h-9">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/NiTp5Z_5U2Y" title="YouTube video player"
+                    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+
 </div>
+
 
 <div class="bg-white pb-8 pb-12">
   <div class="pt-8 overflow-hidden sm:pt-12 lg:relative lg:py-48">

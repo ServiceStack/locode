@@ -64,7 +64,7 @@ This command will create two files, `Configure.Db.cs` and `Configure.AutoQuery.c
 
 ### Bookings table
 
-With our application setup to use SQLite and AutoQuery, we need to define our `Booking` table where our data will be stored.
+With our App now setup to use SQLite & AutoQuery, we'll define our `Booking` table where our data will be stored in:
 
 ```csharp
 public class Booking
@@ -91,10 +91,9 @@ public enum RoomType
 }
 ```
 
-With our table schema defined in code, we can then use OrmLite to create the table for us if it doesn't already exist.
-In the created `Configure.Db.cs` file where our SQLite connect is defined, we can replace the example commented out code 
-to create the `Booking` table.
-
+With our table schema defined in code, we can use OrmLite to create the table for us if it doesn't already exist,
+which we do in the mix generated `Configure.Db.cs` where our SQLite connection is defined, using
+`CreateTableIfNotExists()` to create the `Booking` table and populate it with Seed data when it's first created:
 
 ```csharp
 public class ConfigureDb : IHostingStartup
@@ -126,15 +125,74 @@ public class ConfigureDb : IHostingStartup
 }
 ```
 
-This initialized our database ready for use, but we still don't have any AutoQuery services defined.
-AutoQuery needs to have the request and response DTOs to create AutoQuery services.
+This configures our App's database ready for use, but we still don't have any AutoQuery APIs using them defined.
+
+## AutoQuery APIs
+
+To create an [AutoQuery API](https://docs.servicestack.net/autoquery-rdbms) to query our `Booking` RDBMS table, our 
+Request DTO just needs to inherit `QueryDb<Table>` with `Booking` table they want the API to query:
 
 ```csharp
-public class QueryBookings : QueryDb<Booking>
+public class QueryBookings : QueryDb<Booking> {}
+```
+
+This empty Request DTO alone is all it takes to create an AutoQuery API that can query each `Booking` column using 
+any of the [Implicit Conventions](https://docs.servicestack.net/autoquery-rdbms#implicit-conventions) registered in the
+`AutoQueryFeature` plugin, e.g:
+
+ - https://blazor-wasm-api.jamstacks.net/api/QueryBookings?Ids=1,2,3
+
+However, to aid in the discovery of popular Booking table queries and make them easily accessible to all of ServiceStack's
+[Typed Service Clients](https://docs.servicestack.net/add-servicestack-reference) or [gRPC Clients](https://docs.servicestack.net/grpc)
+it's recommended to formalize queries you want to make available by adding typed properties to the Request DTO, e.g: 
+
+```csharp
+public class QueryBookings : QueryDb<Booking> 
+{
+    public int[] Ids { get; set; }
+    //...
+}
+```
+
+Where they can also be consumed by every Service Client with an end-to-end Typed API, e.g: 
+
+```csharp
+// C#
+var client = new JsonApiClient("https://blazor-wasm-api.jamstacks.net");
+var api = await client.ApiAsync(new QueryBookings { Ids = new[] { 1,2,3 }));
+```
+
+TypeScript Example:
+
+```ts
+// TypeScript
+let client = new JsonServiceClient("https://blazor-wasm-api.jamstacks.net")
+let api = await client.api(new QueryBookings({ Ids: [1,2,3] }))
+```
+
+### User-defined Routes
+
+As AutoQuery APIs are themselves normal ServiceStack APIs they benefit from the entire customizability and ecosystem 
+available to ServiceStack APIs, like [Routing](https://docs.servicestack.net/routing) where the API can be made available 
+under custom user-defined using the `[Route]` attribute:
+
+```csharp
+[Route("/bookings")]
+public class QueryBookings : QueryDb<Booking> 
 {
     public int[] Ids { get; set; }
 }
+```
 
+To also make the `QueryBookings` API available from the `/bookings` path, e.g:
+
+- https://blazor-wasm-api.jamstacks.net/bookings?Ids=1,2,3
+
+### AutoQuery CRUD APIs
+
+AutoQuery needs to have the Request and Response DTOs to create AutoQuery services:
+
+```csharp
 public class CreateBooking
     : ICreateDb<Booking>, IReturn<IdResponse>
 {
