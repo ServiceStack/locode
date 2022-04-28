@@ -1,5 +1,5 @@
 <template>
-<div class="relative bg-gray-50 py-16 overflow-hidden sm:pt-24 lg:pt-32">
+<div class="relative bg-gray-50 pt-16 overflow-hidden sm:pt-24 lg:pt-32">
 
   <div>
     <div class="relative overflow-hidden">
@@ -39,7 +39,7 @@
         </div>
       </div>
 
-      <div class="relative mt-4">
+      <div class="relative mt-8">
         <div class="absolute inset-0 flex flex-col" aria-hidden="true">
           <div class="flex-1"></div>
           <div class="flex-1 w-full bg-gray-900"></div>
@@ -51,11 +51,11 @@
           </div>
         </div>
       </div>
+
     </div>
   </div>
 
 </div>
-
 
 <div class="bg-white pb-8 pb-12">
   <div class="pt-8 overflow-hidden sm:pt-12 lg:relative lg:py-48">
