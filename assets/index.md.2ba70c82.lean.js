@@ -1,0 +1,1 @@
+import{_ as e,c as t,o as a}from"./app.2a3d5ed1.js";const _='{"title":"Locode - Rapidly develop RDBMS Web Apps","description":"","frontmatter":{"home":true,"navbar":false,"title":"Locode - Rapidly develop RDBMS Web Apps"},"headers":[],"relativePath":"index.md"}',o={};function r(p,s,c,d,n,i){return a(),t("div")}var f=e(o,[["render",r]]);export{_ as __pageData,f as default};
