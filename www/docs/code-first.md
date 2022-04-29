@@ -5,6 +5,15 @@ title: Code-first Locode
 Code-first AutoQuery services which drive Locode include both the database model and the related request and response Data Transform Objects (DTOs).
 These two classes can have additional attributes and AppHost configuration to extend the Locode App visuals and behavior.
 
+To get started quickly watch this video for a step-by-step walkthrough into creating a Code-first CRUD App with Locode:
+
+<div class="py-8 max-w-7xl mx-auto px-4 sm:px-6">
+  <div class="aspect-w-16 aspect-h-9">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/mFyMgg7c3vg" title="YouTube video player"
+            frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</div>
+
 
 ## Bookings MVP
 
@@ -280,6 +289,6 @@ with the application having the `IPatch<Booking>` API defined.
 We've walked through a simple example of how to create CRUD APIs for our `Booking` RDBMS table which Locode uses
 to power its instant CRUD UI letting your App users start managing its data immediately. 
 
-This just touches on some of the basic functionality in Locode, next we'll explore the different ways we can 
-annotate your services and data model to customize its behavior & appearance and enlist enhanced functionality 
-using the large number of composable built-in [declarative C# attributes](/docs/declarative).
+This touches on some basic functionality to get started in Locode, next we'll explore its declarative dev model
+with the different ways you can annotate your services and data model to customize its behavior & appearance and
+enhance it with additional functionality using the available composable built-in [declarative C# attributes](/docs/declarative).

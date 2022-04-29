@@ -7,6 +7,15 @@ If you have an existing database with data that needs to be managed directly, a 
 you can configure your ServiceStack application to use AutoQuery Generated Services. This will use your database schema
 to generate a working Locode app that can be extended and customized.
 
+To get started quickly watch this video for a step-by-step walkthrough into creating a Database-first Locode App:  
+
+<div class="py-8 max-w-7xl mx-auto px-4 sm:px-6">
+  <div class="aspect-w-16 aspect-h-9">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/NiTp5Z_5U2Y" title="YouTube video player"
+            frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</div>
+
 ## Northwind example
 We have an example of this in the [Northwind demo](https://northwind.locode.dev) which provides a way to manage 
 all the data in the Northwind database with some customizations to improve usability, all in **~120 lines of C#**.
