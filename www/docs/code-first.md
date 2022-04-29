@@ -190,7 +190,15 @@ To also make the `QueryBookings` API available from the `/bookings` path, e.g:
 
 ### AutoQuery CRUD APIs
 
-AutoQuery needs to have the Request and Response DTOs to create AutoQuery services:
+To enable Auto CRUD behavior on your Table your Request DTOs can implement any of the following interfaces to create 
+APIs with its respective CRUD behavior:
+
+- `ICreateDb<Table>` - Insert a new Table row
+- `IUpdateDb<Table>` - Fully Update an existing Table row
+- `IPatchDb<Table>` - Partially update an existing Table row
+- `IDeleteDb<Table>` - Delete an existing Table row
+
+The Create and Update Request DTOs properties define which columns are updatable from the API: 
 
 ```csharp
 public class CreateBooking
@@ -218,33 +226,60 @@ public class UpdateBooking
     public bool? Cancelled { get; set; }
     public string Notes { get; set; }
 }
+```
 
+Only a single Update DTO needs to be implemented to enable Update functionality in Locode. If `IPatchDb<Table>` is
+implemented will use it to only update modified fields, whereas if only `IUpdateDb<Table>` is implemented, Locode needs
+to send all fields to perform a full update.
+If you have [AutoQuery CRUD Events](https://docs.servicestack.net/autoquery-audit-log) enabled it's recommended to use
+`IPatchDb<Table>` for the audit logs to only capture which fields were updated.
+
+To enable delete functionality in Locode create a Request DTO that implements `IDeleteDb<Table>` with the primary key
+of the table:
+
+```csharp
 public class DeleteBooking : IDeleteDb<Booking>, IReturnVoid
 {
     public int Id { get; set; }
 }
 ```
 
-Locode now has enough information to generate the Booking service forms.
+Although not used by Locode, Delete APIs supports the same querying behavior as AutoQuery APIs where you could enable 
+create an API that supports multiple and batch deletes with the fields you want to delete by, e.g:
+
+```csharp
+public class DeleteBookings : IDeleteDb<Booking>, IReturnVoid
+{
+    public int[]? Ids { get; set; }
+    public bool? Cancelled { get; set; }
+}
+```
+
+Locode is a capability-based UI that only enables functionality for CRUD APIs that exist and the currently authenticated 
+user has access to. As these public APIs don't have any auth restrictions applied to them, they can be used immediately
+by non-authenticated users without signing in to query, insert, update and delete from the `Booking` Table:
 
 ![](../public/assets/img/docs/code-first-bookings-mvp.png)
 
-Clicking on our `Booking` services on the left-hand menu utilizes the `QueryBooking` AutoQuery service, we can see the test seed data that was populated.
+Clicking on our `Booking` services on the left-hand menu utilizes the `QueryBooking` AutoQuery API, we can see the test 
+seed data that was populated.
 
 ![](../public/assets/img/docs/code-first-bookings-mvp-2.png)
 
-Using the `New Booking` button gives us a metadata driven form derived from the properties of the `CreateBooking` Request DTO.
+Using the **New Booking** button gives us a metadata driven Form IO derived from the properties of the `CreateBooking` Request DTO:
 
 ![](../public/assets/img/docs/code-first-bookings-mvp-3.png)
 
-This form is also available for editing existing bookings using the Edit button in the first column. This functionality is enabled since the application has an `IPatch<Booking>` defined.
+This form also allows editing existing bookings using the Edit button in the first column given its functionality is enabled 
+with the application having the `IPatch<Booking>` API defined.
 
 ![](../public/assets/img/docs/code-first-bookings-mvp-4.png)
 
 ## Customizing Locode App
 
-Locode has a number of attributes that can be used to add additional metadata to your services and data model.
-This additional metadata in used by the Locode App to enhance the UI and provide additional functionality.
+We've walked through a simple example of how to create CRUD APIs for our `Booking` RDBMS table which Locode uses
+to power its instant CRUD UI letting your App users start managing its data immediately. 
 
-
-
+This just touches on some of the basic functionality in Locode, next we'll explore the different ways we can 
+annotate your services and data model to customize its behavior & appearance and enlist enhanced functionality 
+using the large number of composable built-in [declarative C# attributes](/docs/declarative).
