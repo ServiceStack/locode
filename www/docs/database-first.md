@@ -2,7 +2,8 @@
 title: Locode - Database-first
 ---
 
-# Database-first
+# Database-First Locode Development
+
 If you have an existing database with data that needs to be managed directly, a Create, Read, Update, Delete (CRUD) application,
 you can configure your ServiceStack application to use AutoQuery Generated Services. This will use your database schema
 to generate a working Locode app that can be extended and customized.

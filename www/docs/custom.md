@@ -1,39 +1,27 @@
 # Custom Locode Apps
 
-When you need to go beyond the declarative and programmatic C# 
+Locode also lets you create rich custom user experiences by going beyond the [declarative C# dev model](/docs/declarative)
+to create custom HTML & JS Components loaded directly in your Locode Apps.
 
-###  
+This lets us provide an enhanced UX beyond Locode's default UI to create [Custom Forms](/docs/custom-forms.html) for 
+some of our tables or [override Locode's own components](/docs/custom-components) to create a custom home page 
+or customize your [App's branding components](/docs/custom.html#custom-app-example) or make use of
+[custom format functions](http://localhost:3000/docs/formatters.html#custom-format-function) to change how results are rendered.
 
-```
-  /wwwroot/modules/locode
-      /custom.js
-      /custom.css
-      /custom.html
-```
+To facilitate custom HTML/JS UI development we've packaged type definitions for all Locode's functionality in the  
+`@servicestack/ui` npm package below to enable its productive typed development UX whose changes load instantly without
+App restarts when run in development mode:
 
-## API Reference
-
-Type definitions for functionality available in ServiceStack UI's
-
-### Library Reference
-
-| Namespace | Description |
-| --- | --- |
-| [shared](https://api.locode.dev/modules/shared.html)     | Type Definitions for all Types and shared functionality used in all UI's |
-| [client](https://api.locode.dev/modules/client.html)     | Type Definitions for the [@servicestack/client](https://github.com/ServiceStack/servicestack-client) library |
-
-### UIs
-
-| UI | Description |
-| --- | --- |
-| [locode](https://api.locode.dev/modules/locode.html)     | Global App and Type instances available in [Locode Apps](https://locode.dev) |
-| [explorer](https://api.locode.dev/modules/explorer.html) | Global App and Type instances available in [API Explorer](https://docs.servicestack.net/api-explorer) |
-| [admin](https://api.locode.dev/modules/admin.html)       | Global App and Type instances available in ServiceStack's [Admin UI](https://docs.servicestack.net/admin-ui) |
+:::sh
+dotnet watch
+:::
 
 ## Getting Started
 
-When customizing any ServiceStack UI App you can enable static typing and intelli-sense by installing this `@servicestack/ui` package
-(containing their TypeScript `.d.ts` definitions) in your host project, then use the standard [ES6 import syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) to import any built-in functionality you want to reference.
+When customizing any ServiceStack UI App you can enable static typing and intelli-sense by installing the `@servicestack/ui` npm package
+(containing their TypeScript `.d.ts` definitions) in your host project, where you'll be able to use the standard 
+[ES6 import syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) 
+to enable static analysis on any built-in functionality you want to use.
 
 ### TypeScript Definitions only used during development
 
@@ -57,106 +45,143 @@ Update your local Type definitions to the latest version with:
 $ npm install @servicestack/ui@latest
 ```
 
-## Example Usages
+## API Reference
 
-Examples of customizing local API Explorer and Locode Apps with static analysis & intelli-sense support enabled.
+Type definitions for functionality available in ServiceStack UI's
 
-### Custom Locode Form UIs
+### Library Reference
 
-To override Locode's built-in Form UI add custom [PetiteVue](https://github.com/vuejs/petite-vue) HTML components ti your Host Project **/wwwroot**
-at `/modules/locode/custom.html` using the the naming conventions below:
+[![](../public/assets/img/shared-api-reference.png)](https://api.locode.dev/modules/shared.html)
 
-|  Component Name | Description |
-|  --- | --- |
-|  `New{Table}` | Custom Create Form UI |
-| `Edit{Table}` | Custom Update Form UI |
+| Namespace                                            | Description                                                                                                  |
+|------------------------------------------------------|--------------------------------------------------------------------------------------------------------------|
+| [shared](https://api.locode.dev/modules/shared.html) | Type Definitions for all Types and shared functionality used in all UI's                                     |
+| [client](https://api.locode.dev/modules/client.html) | Type Definitions for the [@servicestack/client](https://github.com/ServiceStack/servicestack-client) library |
 
-For example, checkout custom components in [/modules/locode/custom.html](https://github.com/NetCoreApps/Chinook/blob/main/Chinook/wwwroot/modules/locode/custom.html) used to render Chinook's [custom Create Album form](https://chinook.locode.dev/locode/QueryAlbums?new=true)
-with static analysis enabled by importing types from `@servicestack/ui` package using standard, e.g:
+### UIs
 
-```html
-<script>
-import { CreateComponentArgs, EditComponentArgs, CrudApisState, map, inputClass } from "@servicestack/ui"
-import { App, Forms } from "@servicestack/ui/locode"
+| UI                                                       | Description                                                                                                  |
+|----------------------------------------------------------|--------------------------------------------------------------------------------------------------------------|
+| [locode](https://api.locode.dev/modules/locode.html)     | Global App and Type instances available in [Locode Apps](https://locode.dev)                                 |
+| [explorer](https://api.locode.dev/modules/explorer.html) | Global App and Type instances available in [API Explorer](https://docs.servicestack.net/api-explorer)        |
+| [admin](https://api.locode.dev/modules/admin.html)       | Global App and Type instances available in ServiceStack's [Admin UI](https://docs.servicestack.net/admin-ui) |
 
-App.components({
-    /** @param {CreateComponentArgs} args */
-    NewAlbums({ store, routes, settings, state, save, done }) {
-        return {
-            $template: '#new-album-template',
-            store, routes, settings,
-            /** @type {State} */
-            get state() { return state && state() },
-            get apiState() { return map(this.state, x => x.apiCreate) },
-            get model() { return map(this.apiState, x => x.model) || {} },
-            inputClass(prop,cls) { return inputClass(this.apiState.fieldError(prop),cls) },
 
-            done,
-            submit() {
-                this.apiState.apiForm(Forms.formData(this.$refs.form, this.apiState.op))
-                    .then(r => {
-                        if (r.api.succeeded) {
-                            save()
-                            done()
-                        }
-                    })
-            }
-        }
-    }
-})
-</script>
-<template id="new-album-template">
-    <!-- Component UI... -->
-</template>
-```
+## Custom UI
 
-## Custom Locode Home Page
+Whilst `@servicestack/ui` isn't used at runtime and therefore not strictly required, it contains the type definitions 
+for all built-in ServiceStack Apps to enable superior Developer UX by enabling static analysis, rich-intellisense and 
+type safety feedback to provide a helpful guide ensuring correct usage of discoverable built-in functionality. 
 
-Each built-in ServiceStack UI component can be overridden by creating a local file in your **wwwroot** folder with the same path of the built-in
-[/ServiceStack/modules](https://github.com/ServiceStack/ServiceStack/tree/main/ServiceStack/src/ServiceStack/modules) component you want to replace.
+All built-in ServiceStack Apps can be customized the same way where each of their HTML components can be replaced by 
+adding a local file at their same path in your AppHost Project's `/wwwroot/modules` folder: 
 
-E.g. Here's Chinook's custom home page in [/modules/locode/components/Welcome.html](https://github.com/NetCoreApps/Chinook/blob/main/Chinook/wwwroot/modules/locode/components/Welcome.html) that's used to render [Chinook's App Home page](https://chinook.locode.dev/locode):
+## /wwwroot/modules
 
-```html
-<script>
-import { App, client } from "@servicestack/ui/locode"
-import { QueryInvoices } from "dtos"
+To make it easy to customize each App, purpose-specific `custom.*` placeholders can be overridden to include additional
+CSS, JS and HTML in each App. Whilst any of their existing components can be replaced by adding a local modified copy
+in its `/components/*.html` folder. 
 
-App.components({
-    Welcome() {
-        return {
-            $template: '#welcome-template',
-            lastOrders: [],
-            mounted() {
-                client.api(new QueryInvoices({ orderBy:'-InvoiceId', 
-                    take:5, 
-                    fields:'InvoiceId,CustomerId,InvoiceDate,Total,BillingCountry,BillingCity' 
-                }), { jsconfig: 'edv' })
-                    .then(api => {
-                        if (api.succeeded) {
-                            this.lastOrders = api.response.results
-                        }
-                    })
-            }
-        }
-    }
-})
-</script>
-<template id="welcome-template">
-    <div class="pl-4" @vue:mounted="mounted">
-        <h1 class="text-3xl">
-            Welcome to Chinook Locode
-        </h1>
-        <div v-if="lastOrders.length" class="mt-8">
-            <h3 class="text-xl mb-4">Here are your last {{lastOrders.length}} orders:</h3>
-            <div class="max-w-screen-md" v-scope="PreviewObject({ val:() => lastOrders })"></div>
-        </div>
-    </div>
-</template>
-```
+We'll go through each App's folder to better visualize their extension placeholders that's available:  
 
-Which also makes use of the [TypeScript DTOs](https://docs.servicestack.net/typescript-add-servicestack-reference) of its ServiceStack APIs, generated by running:
+### /locode
 
-```bash
-$ npm run dtos
-```
+Lets you customize [Locode Apps](https://locode.dev) where [Custom Forms](/docs/custom-forms) can either be registered in 
+`custom.html` or added to `/components/*.html` where you can also override any of Locode's components by including 
+a locally modified copy from
+[/components/*.html](https://github.com/ServiceStack/ServiceStack/tree/main/ServiceStack/src/ServiceStack/modules/locode/components)
+
+        /components
+            *.html
+        custom.js
+        custom.css
+        custom.html
+
+### /ui
+
+Is where to customize your Services [API Explorer UI](https://docs.servicestack.net/api-explorer) where each API can
+be documented by adding [Custom API Docs](https://docs.servicestack.net/api-explorer#api-docs) to `/docs/*.html`,
+whilst existing components can be overridden in 
+[/components/*.html](https://github.com/ServiceStack/ServiceStack/tree/main/ServiceStack/src/ServiceStack/modules/ui/components)
+and custom UI added to `custom.*`
+
+        /docs
+            *.html
+        /components
+            *.html
+        custom.js
+        custom.css
+        custom.html
+
+### /admin-ui
+
+Is where to add any customizations to [Admin UI](https://docs.servicestack.net/admin-ui) by overriding existing components in 
+[/components/*.html](https://github.com/ServiceStack/ServiceStack/tree/main/ServiceStack/src/ServiceStack/modules/admin-ui/components)
+or adding custom UI to `custom.*`
+
+        /components
+            *.html
+        custom.js
+        custom.css
+        custom.html
+
+### /shared
+
+The shared folder is where you can customize all Apps by overriding generic components in 
+[shared/*.html](https://github.com/ServiceStack/ServiceStack/tree/main/ServiceStack/src/ServiceStack/modules/shared)
+whilst custom HTML can be added to the `<head/>`, at the start and end of the `<body/>` of each App by including
+the `custom-*.html` placeholders below:
+
+        *.html
+        custom-head.html
+        custom-body.html
+        custom-end.html        
+
+
+### Custom App Example
+
+The [Blazor WASM](https://docs.servicestack.net/templates-blazor) template includes example App customizations with
+[Custom API Docs](https://docs.servicestack.net/api-explorer#api-docs) for its 
+[CreateBooking](https://blazor-wasm-api.jamstacks.net/ui/CreateBooking?tab=details) and
+[Todos APIs](https://blazor-wasm-api.jamstacks.net/ui/QueryTodos?tab=details) whilst replacing the existing **shared** 
+`Brand` Component changes the top-left App Branding UI in each App:
+
+<ul class="list-none">
+    <li>
+        <a href="https://github.com/NetCoreTemplates/blazor-wasm/tree/main/MyApp/wwwroot/modules" class="font-medium">/modules</a>
+        <ul class="list-none">
+            <li>
+                <span class="font-medium">/ui</span>
+                <ul class="list-none">
+                    <li>
+                        <span class="font-medium">/docs</span>
+                        <ul class="list-none">
+                            <li>
+                                <a href="https://github.com/NetCoreTemplates/blazor-wasm/blob/main/MyApp/wwwroot/modules/ui/docs/CreateBookingsDocs.html">
+                                    CreateBookingsDocs.html
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://github.com/NetCoreTemplates/blazor-wasm/blob/main/MyApp/wwwroot/modules/ui/docs/TodosDocs.html">
+                                    TodosDocs.html
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <span class="font-medium">/shared</span>
+                <ul class="list-none">
+                    <li>
+                        <a href="https://github.com/NetCoreTemplates/blazor-wasm/blob/main/MyApp/wwwroot/modules/shared/Brand.html">
+                            Brand.html
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+
+Next we'll see how we to create [Custom Forms](/docs/custom-forms) to replace the Auto Form UI in Locode Apps.

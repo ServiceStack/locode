@@ -46,11 +46,11 @@ export default {
                             "link": "/docs/get-started"
                         },
                         {
-                            "text": "Database First",
+                            "text": "Database-First",
                             "link": "/docs/database-first"
                         },
                         {
-                            "text": "Code-first",
+                            "text": "Code-First",
                             "link": "/docs/code-first"
                         }
                     ]
@@ -79,6 +79,14 @@ export default {
                             "text": "Overview",
                             "link": "/docs/custom"
                         },
+                        {
+                            "text": "Custom Forms",
+                            "link": "/docs/custom-forms"
+                        },
+                        {
+                            "text": "Custom Components",
+                            "link": "/docs/custom-components"
+                        }
                     ]
                 },
                 {

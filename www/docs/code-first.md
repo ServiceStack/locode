@@ -1,6 +1,8 @@
 ---
-title: Code-first Locode
+title: Code-First Locode
 ---
+
+# Code-First Locode Development
 
 Code-first AutoQuery services which drive Locode include both the database model and the related request and response Data Transform Objects (DTOs).
 These two classes can have additional attributes and AppHost configuration to extend the Locode App visuals and behavior.
