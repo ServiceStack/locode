@@ -134,7 +134,45 @@ there are also [PostgreSQL-specific](https://docs.servicestack.net/ormlite/postg
 | `[QueryDb]`      | Change the default querying behaviour of filter properties   |
 | `[QueryDbField]` | Define to use a custom AutoQuery filter                      |
 
-### Validation Attributes
+### Type Validation Attributes
+
+[Type Validation](https://docs.servicestack.net/declarative-validation#type-validators) attributes
+
+| Attribute                   | Description                                                                          |
+|-----------------------------|--------------------------------------------------------------------------------------|
+| `[ValidateRequest]`         | Validate Type against custom Validator expression                                    |
+| `[ValidateIsAuthenticated]` | Protect access to this API to Authenticated Users only                               |
+| `[ValidateIsAdmin]`         | Protect access to this API to Authenticated Admin Users only                         |
+| `[ValidateHasPermission]`   | Protect access to this API to only Authenticated Users with ALL Permissions |
+| `[ValidateHasRole]`         | Protect access to this API to only Authenticated Users assigned with ALL Roles       |
+
+### Property Validation Attributes
+
+[Type Validation](https://docs.servicestack.net/declarative-validation#type-validators) attributes
+
+| Attribute                      | Description                                                             |
+|--------------------------------|-------------------------------------------------------------------------|
+| `[Validate]`                   | Validate property against custom Validator expression                   |
+| `[ValidateCreditCard]`         | Validate property against Fluent Validation CreditCardValidator         |
+| `[ValidateEmail]`              | Validate property against Fluent's AspNetCoreCompatibleEmailValidator   |
+| `[ValidateEmpty]`              | Validate property against Fluent Validation EmptyValidator              |
+| `[ValidateEqual]`              | Validate property against Fluent Validation EqualValidator              |
+| `[ValidateExactLength]`        | Validate property against Fluent Validation ExactLengthValidator        |
+| `[ValidateExclusiveBetween]`   | Validate property against Fluent Validation ExclusiveBetweenValidator   |
+| `[ValidateGreaterThan]`        | Validate property against Fluent Validation GreaterThanValidator        |
+| `[ValidateGreaterThanOrEqual]` | Validate property against Fluent Validation GreaterThanOrEqualValidator |
+| `[ValidateInclusiveBetween]`   | Validate property against Fluent Validation InclusiveBetweenValidator   |
+| `[ValidateLength]`             | Validate property against Fluent Validation LengthValidator             |
+| `[ValidateLessThan]`           | Validate property against Fluent Validation LessThanValidator           |
+| `[ValidateLessThanOrEqual]`    | Validate property against Fluent Validation LessThanOrEqualValidator    |
+| `[ValidateMaximumLength]`      | Validate property against Fluent Validation MaximumLengthValidator      |
+| `[ValidateMinimumLength]`      | Validate property against Fluent Validation MinimumLengthValidator      |
+| `[ValidateNotEmpty]`           | Validate property against Fluent Validation NotEmptyValidator           |
+| `[ValidateNotEqual]`           | Validate property against Fluent Validation NotEqualValidator           |
+| `[ValidateNotNull]`            | Validate property against Fluent Validation NotNullValidator            |
+| `[ValidateNull]`               | Validate property against Fluent Validation NullValidator               |
+| `[ValidateRegularExpression]`  | Validate property against Fluent Validation RegularExpressionValidator  |
+| `ValidateScalePrecision`       | Validate property against Fluent Validation ScalePrecisionValidator     |
 
 ### Authentication Restrictions
 
