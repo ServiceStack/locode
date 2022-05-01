@@ -6,7 +6,7 @@ to create custom HTML & JS Components loaded directly in your Locode Apps.
 This lets us provide an enhanced UX beyond Locode's default UI to create [Custom Forms](/docs/custom-forms.html) for 
 some of our tables or [override Locode's own components](/docs/custom-components) to create a custom home page 
 or customize your [App's branding components](/docs/custom.html#custom-app-example) or make use of
-[custom format functions](http://localhost:3000/docs/formatters.html#custom-format-function) to change how results are rendered.
+[custom format functions](/docs/formatters.html#custom-format-function) to change how results are rendered.
 
 To facilitate custom HTML/JS UI development we've packaged type definitions for all Locode's functionality in the  
 `@servicestack/ui` npm package below to enable its productive typed development UX whose changes load instantly without
