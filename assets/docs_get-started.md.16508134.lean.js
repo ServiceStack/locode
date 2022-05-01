@@ -1,0 +1,1 @@
+import{_ as e,c as t,o as r,a as o}from"./app.ef23f79a.js";const p='{"title":"Getting started with Locode","description":"","frontmatter":{"title":"Getting started with Locode"},"headers":[],"relativePath":"docs/get-started.md"}',s={},i=o("",3),a=[i];function n(d,c,l,g,u,h){return r(),t("div",null,a)}var v=e(s,[["render",n]]);export{p as __pageData,v as default};
