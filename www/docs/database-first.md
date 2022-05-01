@@ -233,16 +233,18 @@ it also annotates the code-generated types which are retained when moving from d
 
 ### Annotated Example of Northwind's Customizations
 
-Annotating the Database First code-gen types can be done via the `ServiceFilter` and `TypeFilter` properties on 
-`GenerateCrudServices` instructions when registering the `AutoQueryFeature`.
-
-The `ServiceFilter` is called for every Service Operation whilst the `TypesFilter` is called for every code-gen Type 
-including Request & Response DTOs. 
-
 To help illustrate some customizations available we've annotated the customizations made to the Northwind Sample SQLite Database
 that was used to create the custom [northwind.locode.dev](https://northwind.locode.dev) Locode App:
 
 [![](../public/assets/img/northwind/screenshot.png)](https://northwind.locode.dev/locode/QueryEmployees)
+
+### Modifying Dynamic Types at Runtime
+
+Annotating the Database First code-gen types can be done via the `ServiceFilter` and `TypeFilter` properties on
+`GenerateCrudServices` instructions when registering the `AutoQueryFeature`.
+
+The `ServiceFilter` is called for every Service Operation whilst the `TypesFilter` is called for every code-gen Type
+including Request & Response DTOs.
 
 ```csharp
 Plugins.Add(new AutoQueryFeature {
