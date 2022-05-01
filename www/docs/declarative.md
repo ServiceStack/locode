@@ -18,18 +18,26 @@ C# API **DTOs** with the rich functionality available in ServiceStack's Attribut
 
  - [Configure.AppHost.cs](https://github.com/NetCoreApps/NorthwindAuto/blob/master/Configure.AppHost.cs)
 
-## Customize Schema with OrmLite Attributes
+## Data Model Attributes
 
-## Auth & Validation Rules
+### Customize Schema with OrmLite Attributes
 
-## Annotate APIs
+## API Attributes
 
-## AutoQuery Behaviour
+### Auth & Validation Rules
 
-## Formatters
+### Annotate APIs
 
-## Custom Input Controls
+### AutoQuery Behaviour
 
-## Lookup References
+### File Uploads
 
-## File Uploads
+## UI Attributes
+
+### Formatters
+
+### Custom Input Controls
+
+### Lookup References
+
+
