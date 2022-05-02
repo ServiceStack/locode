@@ -35,19 +35,16 @@ instead [dynamically added at runtime](/docs/database-first#modifying-dynamic-ty
 ## Overview
 
 Annotating APIs and Data Models is the primary way of enlisting existing functionality in ServiceStack where most of the
-functionality can be broadly used grouped into major 3 areas:
-
- - **Data Model Attributes** - For utilizing RDBMS features & customizing how Data Models are mapped to RDBMS Tables
- - **API Attributes** - For customizing the functionality, behavior & accessibility of your APIs
- - **Metadata & UI Attributes** - For documenting APIs metadata and changing their UI & Appearance in UIs 
-
-Locode Apps, ServiceStack APIs and OrmLite Data Models
+functionality can be broadly grouped into customizing how Data Models map to RDBMS tables and make use of RDBMS features,
+customizing API behavior and annotating & documenting APIs to customize their appearance in UIs.
 
 ## Data Model Attributes
 
-### OrmLite Type Attributes
+These Data Model attributes can be used to utilize RDBMS features & customize how Types are mapped to RDBMS Tables.
 
-These attributes are used to customize how C# Types configure & map to RDBMS Tables
+### Table Data Model Attributes
+
+These OrmLite attributes can be used to customize how C# Types configure & map to RDBMS Tables.
 
 | Attribute             | Description                                              |
 |-----------------------|----------------------------------------------------------|
@@ -59,9 +56,9 @@ These attributes are used to customize how C# Types configure & map to RDBMS Tab
 | `[Schema]`            | Define which RDBMS Schema Data Model belongs to          |
 | `[UniqueConstraint]`  | Define a unique multi column RDBMS column constraint     |
 
-### OrmLite Property Attributes
+### Column Property Attributes
 
-These attributes are used to customize how C# Properties configure & map to RDBMS Columns
+These OrmLite attributes are used to customize how C# Properties configure & map to RDBMS Columns.
 
 | Attribute           | Description                                                                                         |
 |---------------------|-----------------------------------------------------------------------------------------------------|
@@ -97,9 +94,12 @@ These attributes are used to customize how C# Properties configure & map to RDBM
 
 In addition to these generic Data Model attributes that work with any [supported RDBMS](https://docs.servicestack.net/ormlite/installation),
 there are also [PostgreSQL-specific](https://docs.servicestack.net/ormlite/postgres-features) and 
-[SQL Server specific](https://docs.servicestack.net/ormlite/sql-server-features) attributes to unlock their RDBMS-specific features. 
+[SQL Server specific](https://docs.servicestack.net/ormlite/sql-server-features) attributes to unlock their respective 
+RDBMS-specific features. 
 
 ## API Attributes
+
+Use the Attributes to customize the functionality, behavior & accessibility of your APIs, and they're available endpoints.
 
 ### Custom Serialization
 
@@ -110,45 +110,63 @@ there are also [PostgreSQL-specific](https://docs.servicestack.net/ormlite/postg
 | `[Flags]`            | Serialize an Enum's integer value instead                                            |
 | `[IgnoreDataMember]` | Ignore property from serialization                                                   |
 
-### API Behavior
+### Generic API Behavior
 
-| Attribute           | Description                                                            |
-|---------------------|------------------------------------------------------------------------|
-| `[Exclude]`         | Mark types that are to be excluded from metadata & specified endpoints |
-| `[ExcludeMetadata]` | Exclude API from all Metadata Services                                 |
-| `[Route]`           | Make this API available on the specified user-defined route            |
-| `[Restrict]`        | Make this API available on the specified user-defined route            |
+| Attribute    | Description                                                                     |
+|--------------|---------------------------------------------------------------------------------|
+| `[Exclude]`  | Instruct which APIs should be excluded from metadata & specified endpoints      |
+| `[Route]`    | Make this API available on the specified user-defined route                     |
+| `[Restrict]` | Restrict the accessibility of a service and its visibility in Metadata services |
+| `[UploadTo]` | Specify which File Upload location should be used to manage these file uploads  |
+
+More information on usage of these attributes can be found in 
+[Routing ](https://docs.servicestack.net/routing) Docs, 
+[Restricting Services](https://docs.servicestack.net/auth-restricting-services) and
+[Managed File Uploads](/docs/files) Docs.
 
 ### AutoQuery Attributes
 
-| Attribute        | Description                                                  |
-|------------------|--------------------------------------------------------------|
-| `[AutoApply]`    | Apply built-in composite generic behavior                    |
-| `[AutoPopulate]` | Populate data models with generic user & system info         |
-| `[AutoFilter]`   | Apply additional pre-configured filters to AutoQuery APIs    |
-| `[AutoMap]`      | Map System Input properties to Data Model fields             |
-| `[AutoDefault]`  | Specify to fallback default values when not provided         |
-| `[AutoIgnore]`   | Ignore mapping Request DTO property to Data Model            |
-| `[AutoPopulate]` | Populate data models with generic user & system info         |
-| `[AutoUpdate]`   | Change the update behavior to only update non-default values |
-| `[QueryDb]`      | Change the default querying behaviour of filter properties   |
-| `[QueryDbField]` | Define to use a custom AutoQuery filter                      |
+These attributes can be used to customize the querying behavior of [AutoQuery APIs](https://docs.servicestack.net/autoquery-rdbms). 
+
+| Attribute        | Description                                                          |
+|------------------|----------------------------------------------------------------------|
+| `[QueryDb]`      | Change the default querying behaviour of AutoQuery filter properties |
+| `[QueryDbField]` | Define field to use a custom AutoQuery filter                        |
+
+### AutoQuery CRUD Attributes
+
+Use these attributes to customize the behavior of [AutoQuery CRUD APIs](https://docs.servicestack.net/autoquery-crud).
+
+| Attribute        | Description                                                          |
+|------------------|----------------------------------------------------------------------|
+| `[AutoApply]`    | Apply built-in composite generic behavior                            |
+| `[AutoPopulate]` | Populate data models with generic user & system info                 |
+| `[AutoFilter]`   | Apply additional pre-configured filters to AutoQuery APIs            |
+| `[AutoMap]`      | Map System Input properties to Data Model fields                     |
+| `[AutoDefault]`  | Specify to fallback default values when not provided                 |
+| `[AutoIgnore]`   | Ignore mapping Request DTO property to Data Model                    |
+| `[AutoPopulate]` | Populate data models with generic user & system info                 |
+| `[AutoUpdate]`   | Change the update behavior to only update non-default values         |
 
 ### Type Validation Attributes
 
-[Type Validation](https://docs.servicestack.net/declarative-validation#type-validators) attributes
+As AutoQuery APIs typically don't have a Service implementation, the recommended way to protect access to them is 
+to use the declarative [Type Validators](https://docs.servicestack.net/declarative-validation#type-validators) 
+below as they're decoupled from any implementation and can be safely annotated on Request DTOs without requiring any 
+implementation dependencies.
 
-| Attribute                   | Description                                                                          |
-|-----------------------------|--------------------------------------------------------------------------------------|
-| `[ValidateRequest]`         | Validate Type against custom Validator expression                                    |
-| `[ValidateIsAuthenticated]` | Protect access to this API to Authenticated Users only                               |
-| `[ValidateIsAdmin]`         | Protect access to this API to Authenticated Admin Users only                         |
-| `[ValidateHasPermission]`   | Protect access to this API to only Authenticated Users with ALL Permissions |
-| `[ValidateHasRole]`         | Protect access to this API to only Authenticated Users assigned with ALL Roles       |
+| Attribute                   | Description                                                            |
+|-----------------------------|------------------------------------------------------------------------|
+| `[ValidateRequest]`         | Validate Type against a custom Validator expression                    |
+| `[ValidateIsAuthenticated]` | Protect access to this API to Authenticated Users only                 |
+| `[ValidateIsAdmin]`         | Protect access to this API to Admin Users only                         |
+| `[ValidateHasPermission]`   | Protect access to this API to only Users assigned with ALL Permissions |
+| `[ValidateHasRole]`         | Protect access to this API to only Users assigned with ALL Roles       |
 
 ### Property Validation Attributes
 
-[Type Validation](https://docs.servicestack.net/declarative-validation#type-validators) attributes
+The [Declarative Validation](https://docs.servicestack.net/declarative-validation#type-validators) attributes enable
+an alternative way of defining [Fluent Validation rules](https://docs.servicestack.net/validation) on properties.
 
 | Attribute                      | Description                                                             |
 |--------------------------------|-------------------------------------------------------------------------|
@@ -172,12 +190,12 @@ there are also [PostgreSQL-specific](https://docs.servicestack.net/ormlite/postg
 | `[ValidateNotNull]`            | Validate property against Fluent Validation NotNullValidator            |
 | `[ValidateNull]`               | Validate property against Fluent Validation NullValidator               |
 | `[ValidateRegularExpression]`  | Validate property against Fluent Validation RegularExpressionValidator  |
-| `ValidateScalePrecision`       | Validate property against Fluent Validation ScalePrecisionValidator     |
+| `[ValidateScalePrecision]`     | Validate property against Fluent Validation ScalePrecisionValidator     |
 
 ### Authentication Restrictions
 
 These [Request Filter Attributes](https://docs.servicestack.net/filter-attributes) applied to Service Implementation classes
-apply to all Service method implementations defined within them.
+apply to all Service method implementations contained within them.
 
 | Attribute                 | Description                                                                          |
 |---------------------------|--------------------------------------------------------------------------------------|
@@ -188,13 +206,22 @@ apply to all Service method implementations defined within them.
 | `[RequiresAnyPermission]` | Protect access to this API to Authenticated Users assigned with ANY Permissions      |
 | `[RequiresAnyRole]`       | Protect access to this API to Authenticated Users assigned with ANY Roles            |
 
-### File Uploads
+Refer to [Authentication Attribute docs](https://docs.servicestack.net/authentication-and-authorization#the-authenticate-attribute) for more info.
 
----
+## UI & Metadata Attributes
 
-## UI Attributes
+These attributes can be used to document and annotate APIs which will customize how they're documented and appear in
+Metadata services, [Add ServiceStack Reference](https://docs.servicestack.net/add-servicestack-reference)
+generated DTOs and metadata driven, capability-based Auto UIs like
+[API Explorer](https://docs.servicestack.net/api-explorer),
+[Locode](https://locode.dev) and
+[Swagger UI](https://docs.servicestack.net/openapi).
 
 ### Annotate APIs
+
+Whilst they can change how they appear and are accessed by external clients, it's important to note that they 
+do not have any impact on the behavior & functionality of back-end APIs, i.e. your preferred 
+[validation method](https://docs.servicestack.net/validation) is still required in order to enforce validation.
 
 | Attribute              | Description                                                                      |
 |------------------------|----------------------------------------------------------------------------------|
@@ -203,26 +230,37 @@ apply to all Service method implementations defined within them.
 | `[ApiResponse]`        | Document potential API Responses this API could return                           |
 | `[ApiAllowableValues]` | Document the allowable values for an API Property                                |
 | `[Description]`        | Annotate any Type, Property or Enum with a textual description                   |
+| `[ExcludeMetadata]`    | Exclude API from all Metadata Services                                           |
 | `[Id]`                 | Uniquely identify C# Types and properties with a unique integer in gRPC Services |
 | `[Meta]`               | Decorate any type or property with custom metadata                               |
 | `[Meta]`               | Decorate any type or property with custom metadata                               |
 | `[Range]`              | Document the allowable min and max range for this property                       |
+| `[Required]`           | Document that this is a required property                                        |
 | `[Notes]`              | Document a longer form description about a Type                                  |
 
+### Customize UI
 
-### Formatters
+These UI attributes can be used to customize Auto UI Form fields and how search results are rendered.
 
-### Custom Input Controls
+### Result Formatters
 
-### Lookup UI References
+Refer to the [Formatters docs](/docs/formatters) for more info on how to use formatters to customize search results. 
 
 | Attribute            | Description                                                                  |
 |----------------------|------------------------------------------------------------------------------|
-| `[Input]`            | Customize the HTML Input control for a Property in Auto Form UIs             |
 | `[Intl]`             | Configure result field to use JavaScript's Intl formatter                    |
 | `[IntlNumber]`       | Configure result field to use JavaScript's Intl.NumberFormat formatter       |
 | `[IntlDateTime]`     | Configure result field to use JavaScript's Intl.DateTimeFormat formatter     |
 | `[IntlRelativeTime]` | Configure result field to use JavaScript's Intl.RelativeTimeFormat formatter |
+| `[Ref]`              | Configure Lookup fields to use UI References to external Data Models         |
+
+### Custom Fields and Input Controls
+
+These attributes can be used to customize how fields and HTML Input controls in Auto UIs like [Locode](https://locode.dev)
+and [API Explorer](https://docs.servicestack.net/api-explorer).
+
+| Attribute            | Description                                                                  |
+|----------------------|------------------------------------------------------------------------------|
+| `[Input]`            | Customize the HTML Input control for a Property in Auto Form UIs             |
 | `[Field]`            | Customize a Form Field and HTML Input for a Type's Property                  |
-| `[Ref]`              | Define UI References to external Data Models                                 |
 
