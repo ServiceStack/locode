@@ -254,13 +254,126 @@ Refer to the [Formatters docs](/docs/formatters) for more info on how to use for
 | `[IntlRelativeTime]` | Configure result field to use JavaScript's Intl.RelativeTimeFormat formatter |
 | `[Ref]`              | Configure Lookup fields to use UI References to external Data Models         |
 
-### Custom Fields and Input Controls
+### Custom Fields and Inputs
 
 These attributes can be used to customize how fields and HTML Input controls in Auto UIs like [Locode](https://locode.dev)
 and [API Explorer](https://docs.servicestack.net/api-explorer).
 
-| Attribute            | Description                                                                  |
-|----------------------|------------------------------------------------------------------------------|
-| `[Input]`            | Customize the HTML Input control for a Property in Auto Form UIs             |
-| `[Field]`            | Customize a Form Field and HTML Input for a Type's Property                  |
+| Attribute       | Description                                                               |
+|-----------------|---------------------------------------------------------------------------|
+| `[Input]`       | Customize the HTML Input control for a Property in Auto Form UIs          |
+| `[Field]`       | Customize the HTML Input control and Form Field CSS for a Type's Property |
+| `[FieldCss]`    | Customize a Property Form Field CSS                                       |
+| `[ExplorerCss]` | Customize the Form and Field CSS in API Explorer                          |
+| `[LocodeCss]`   | Customize the Form and Field CSS in Locode                                |
 
+We'll go through some examples to explore how they can be used to customize Locode and API Explorer UIs.
+
+From the `CreateJob` Request DTO we can already see that Locode will use the most appropriate HTML Input for the specific
+data type, e.g. a `<input type=number>` for integers, a `<input type=date>` for Date Types and a `<select>` dropdown
+for properties with finite values like Enums.
+
+We can also further customize each field with the `[Input]` attribute where we can change to use a `<textarea>` for 
+large text fields which we can pair with the `[FieldCss]` attribute to change the width of its encapsulating field
+using [TailwindCss Grid classes](https://tailwindcss.com/docs/grid-column#spanning-columns) to change its width
+and center its label:
+
+```csharp
+public class CreateJob : ICreateDb<Job>, IReturn<Job>
+{
+    public string Title { get; set; }
+
+    [ValidateGreaterThan(0)]
+    public int SalaryRangeLower { get; set; }
+    [ValidateGreaterThan(0)]
+    public int SalaryRangeUpper { get; set; }
+    [Input(Type = "textarea"), FieldCss(Field = "col-span-12 text-center")]
+    public string Description { get; set; }
+
+    public EmploymentType EmploymentType { get; set; }
+    public string Company { get; set; }
+    public string Location { get; set; }
+
+    public DateTime Closing { get; set; }
+}
+```
+
+Which renders our preferred responsive form layout:
+
+[![](../public/assets/img/talent/create-job.png)](https://talent.locode.dev/locode/QueryJob?new=true)
+
+### Field
+
+The `[Field]` attribute is an alternative way to define both `[Input]` and `[FieldCss]` attributes on **Types** which
+is especially useful when you don't have the property on the Request DTO you want to define because it's in a base class,
+in which case you can use `[Field]` on the Request DTO:
+
+```csharp
+[Field(nameof(Description), Type = "textarea", FieldCss="col-span-12 text-center")]
+public class CreateJob : JobBase, ICreateDb<Job>, IReturn<Job> {}
+```
+
+### Hiding Input Fields
+
+Since the UIs only shows properties defined on Create and Update CRUD DTOs, not defining them will prevent them from
+being included in the form. However, in the rare cases where you still want them defined on the Typed back-end API but
+hidden from the UI, you can use `Ignore=true`:
+
+```csharp
+public class UpdateJob : IPatchDb<Job>, IReturn<Job> 
+{
+    [Input(Ignore = true)]
+    public string Description { get; set; }
+    //...
+}
+
+[Field(nameof(Description), Ignore = true)]
+public class UpdateJob : JobBase, IPatchDb<Job>, IReturn<Job> {}
+```
+
+This will completely exclude them from the UI, if you instead want them as an `<input type=hidden>` you can use:
+
+```csharp
+[Input(Type="hidden")]
+public string Description { get; set; }
+```
+
+### Custom Form CSS
+
+The high-level `[LocodeCss]` attribute can be used to change the entire Form layout instead where you'll be able to
+change the default Form, FieldSet and Field CSS classes, e.g:
+
+```csharp
+[LocodeCss(Field="col-span-12 sm:col-span-6", Fieldset = "grid grid-cols-6 gap-8", 
+           Form = "border border-indigo-500 overflow-hidden max-w-screen-lg")]
+[Field(nameof(BookingEndDate), LabelCss = "text-gray-800", InputCss = "bg-gray-100")]
+[Field(nameof(Notes), Type = "textarea", FieldCss="col-span-12 text-center", InputCss = "bg-gray-100")]
+public class UpdateBooking : IPatchDb<Booking>, IReturn<IdResponse>
+{
+    public int Id { get; set; }
+    [ValidateNotNull]
+    public string? Name { get; set; }
+    public RoomType? RoomType { get; set; }
+    [ValidateGreaterThan(0)]
+    public int? RoomNumber { get; set; }
+    [ValidateGreaterThan(0), AllowReset]
+    public decimal? Cost { get; set; }
+    public DateTime? BookingStartDate { get; set; }
+    public DateTime? BookingEndDate { get; set; }
+    public string? Notes { get; set; }
+    public bool? Cancelled { get; set; }
+}
+```
+
+Renders our custom Form layout:
+
+![](../public/assets/img/docs/locode-css.png)
+
+These changes only applies to the Form when viewed in Locode, to change the Form in API Explorer use `[ExplorerCss]`: 
+
+```csharp
+[ExplorerCss(Field="col-span-12 sm:col-span-6", Fieldset = "grid grid-cols-6 gap-8", 
+             Form = "border border-indigo-500 overflow-hidden max-w-screen-lg")]
+```
+
+When more customization is needed checkout how you can replace the entire Form in the [Custom Forms docs](/docs/custom-forms).

@@ -63,6 +63,10 @@ export default {
                             "link": "/docs/declarative"
                         },
                         {
+                            "text": "Code Customizations",
+                            "link": "/docs/programmatic"
+                        },
+                        {
                             "text": "Branding & Appearance",
                             "link": "/docs/branding"
                         },
