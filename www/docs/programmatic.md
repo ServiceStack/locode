@@ -107,7 +107,7 @@ for registering a single lambda to customize the metadata for all Operations and
 to do the same for all DTO Types.
 
 Unlike the AutoGen `TypeFilter` to 
-[Modify Dynamic Types at Runtime](http://localhost:3000/docs/database-first.html#modifying-dynamic-types-at-runtime)
+[Modify Dynamic Types at Runtime](/docs/database-first.html#modifying-dynamic-types-at-runtime)
 which is only executed for customizing code-gen Types, these metadata APIs can be used for customizing the metadata
 of both [Database-First](/docs/database-first) and [Code-First](/docs/code-first) Types.
 
