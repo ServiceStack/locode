@@ -55,7 +55,7 @@ for specific AutoQuery CRUD Operations.
 
 All UI attributes are used to populate the metadata model for your App which is used to power their metadata-driven UIs.
 An alternative way to populate this metadata is to use `ConfigureOperation<RequestDto>` to populate the metadata directly,
-e.g. here's an example of how we can customize the `<input>` in our `Register` Form UI:
+e.g. here's an example of how we can customize the `<input>` in our custom `Register` **FormLayout**:
 
 ```csharp
 appHost.ConfigureOperation<Register>(op => op.FormLayout = new()
@@ -67,8 +67,8 @@ appHost.ConfigureOperation<Register>(op => op.FormLayout = new()
 });
 ```
 
-Whilst this is just a flattened list of inputs we're still able to customize the form layout by using the Typed 
-`FieldsPerRow()` Configuration API:
+Whilst being just a flattened list of inputs we're still able to customize the form layout by using the Typed 
+`FieldsPerRow()` helper method:
 
 ```csharp
 Plugins.Add(new AdminUsersFeature {
@@ -91,8 +91,9 @@ Plugins.Add(new AdminUsersFeature {
 });
 ```
 
-Which is just a typed helper to simplify choosing the responsive [TailwindCss grid classes](https://tailwindcss.com/docs/grid-column)
-we want, in this case renders 2 fields per row from the `sm` responsive breakpoint by expanding to:
+Which just simplifies choosing the responsive [TailwindCss grid classes](https://tailwindcss.com/docs/grid-column)
+we want, in this case renders **2 fields per row** from the `sm` responsive [Tailwind breakpoint](https://tailwindcss.com/docs/screens) 
+by expanding to:
 
 ```csharp
 Input.For<UserAuth>(x => x.FirstName, c => c.Input.Css.Field = "col-span-12 sm:col-span-6")
@@ -105,14 +106,14 @@ In addition to `ConfigureOperation<T>` for customizing the metadata for a single
 for registering a single lambda to customize the metadata for all Operations and `ConfigureTypes(type => ...)`
 to do the same for all DTO Types.
 
-Unlike the AutoGen `TypeFilter` for 
-[Modifying Dynamic Types at Runtime](http://localhost:3000/docs/database-first.html#modifying-dynamic-types-at-runtime)
+Unlike the AutoGen `TypeFilter` to 
+[Modify Dynamic Types at Runtime](http://localhost:3000/docs/database-first.html#modifying-dynamic-types-at-runtime)
 which is only executed for customizing code-gen Types, these metadata APIs can be used for customizing the metadata
-of both Database-First and Code-First Types.
+of both [Database-First](/docs/database-first) and [Code-First](/docs/code-first) Types.
 
 So if the [Northwind Database-First](https://northwind.locode.dev) and 
 [Chinook Code-First](https://chinook.locode.dev) were both configured in the same App, you could use a single lambda
-to configure both, e.g:
+to configure the metadata in both, e.g:
 
 ```csharp
 var icons = new Dictionary<string, ImageInfo>
@@ -187,10 +188,11 @@ appHost.ConfigureTypes(type => {
 
 ### Typed APIs
 
-One of the benefits of using code to customize inputs is that we can provide a more typed API like `Input.Types.Email`
-as they have access to all implementation libraries whereas since DTOs shouldn't reference any implementation assemblies
-they'll need to use the `Type="email"` string literal instead, although the Typed API can still serve as a reference
-for the supported input types:
+One of the benefits of using code to customize inputs is having access to more typed API like `Input.Types.Email`
+given they have access to all implementation libraries whereas since 
+[ServiceModel DTOs](https://docs.servicestack.net/physical-project-structure#servicemodel-project) shouldn't reference any 
+implementation assemblies they'll need to use the `[Input(Type="email")]` string literal instead, although the Typed API 
+can still serve as a reference for the supported input types:
 
 ```csharp
 public static class Input
@@ -228,7 +230,7 @@ public static class Input
 ### Input Reference
 
 All Input customizations serializes down to the `InputInfo` Metadata DTO which we can see is able to customize 
-most HTML `<input>` attributes:
+most HTML `<input>` attributes to be able to provide a more optimized UX like client-side validation:
 
 ```csharp
 public class InputInfo : IMeta
