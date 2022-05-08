@@ -43,7 +43,11 @@ against their User Id and uploaded File Extension type.
 The only default restriction placed on File Uploads is that they can only be performed by Authenticated Users. 
 Each `UploadLocation` is able to use the several configuration options available to further restrict file uploads
 by file type, count, size, number of uploads or a custom validation function. In this instance Talent Blazor
-is restricting uploads in `allowExtensions` to only Images supported by Browsers.
+is restricting uploads in `allowExtensions` to only Images supported by Browsers, which is a server validation that 
+also gets propagated to the client to limit the user to only be able to select from the server-configured file extensions:
+
+![](../public/assets/img/talent/upload-accept.png)
+
 
 To simplify configuration 
 [we've included](https://github.com/ServiceStack/ServiceStack/blob/main/ServiceStack/src/ServiceStack/FilesUploadFeature.cs) 
@@ -407,9 +411,9 @@ more human & wrist-friendly and more efficient format than JSON, however we coul
 in HTTP **multipart/form-data** requests to construct an HTTP API Request utilizing multiple Content-Type's optimized
 for the data we're sending, e.g:
 
-- JSON/JSV is more optimal for hierarchical graph data 
-- CSV is more optimal for sending tabular data
-- File Uploads are more optimal for sending large file uploads
+- JSON/JSV more optimal for hierarchical graph data 
+- CSV more optimal for sending tabular data
+- File Uploads are more optimal for sending large files
 
 To facilitate this in our Server APIs we can use `[MultiPartField]` attribute to instruct ServiceStack which registered
 serializer it should use to deserialize the form-data payload, whilst we can continue using the generic `[UploadTo]`
@@ -439,6 +443,19 @@ if (!api.Succeeded) api.Error.PrintDump();
 ```
 
 ## Uploading Files from JS/TypeScript
+
+Similarly, we can populate custom requests by either programmatically constructing the 
+[FormData](https://developer.mozilla.org/en-US/docs/Web/API/FormData) object which also benefits from native integration
+in browsers where it can be populated directly from an HTML Form:
+
+```ts
+let client = new JsonServiceClient(BaseUrl)
+let formData = new FormData(document.forms[0])
+let api = await client.apiForm(new MultipartRequest(), formData)
+```
+
+Where `apiForm` can be used to submit `FormData` requests for normal API Requests, whereas `IReturnVoid` API requests 
+should instead use `apiFormVoid`.
 
 ## Substitutable Virtual File Providers
 
@@ -488,33 +505,9 @@ static void ValidateUpload(IRequest request, IHttpFile file)
 //...
 ```
 
+### Memory Virtual File Sources
 
-https://github.com/ServiceStack/ServiceStack/blob/main/ServiceStack/tests/NorthwindAuto/Configure.AppHost.cs
-
-```csharp
-var uploadVfs = new FileSystemVirtualFiles(TalentBlazorWwwRootDir);
-var appDataVfs = new FileSystemVirtualFiles(TalentBlazorAppDataDir);
-
-Plugins.Add(new FilesUploadFeature(
-    new UploadLocation("profiles", uploadVfs, allowExtensions:FileExt.WebImages,
-        resolvePath:ctx => $"/profiles/{ctx.FileName}"),
-    
-    new UploadLocation("game_items", appDataVfs, allowExtensions:FileExt.WebImages),
-    
-    new UploadLocation("files", GetVirtualFileSource<FileSystemVirtualFiles>(),
-        resolvePath:ctx => $"/files/{ctx.FileName}"),
-    
-    new UploadLocation("users", uploadVfs, allowExtensions:FileExt.WebImages,
-        resolvePath:ctx => $"/profiles/users/{ctx.UserAuthId}.{ctx.FileExtension}"),
-
-    new UploadLocation("applications", appDataVfs, maxFileCount: 3, maxFileBytes: 10_000_000,
-        resolvePath: ctx => ctx.GetLocationPath((ctx.Dto is CreateJobApplication create
-            ? $"job/{create.JobId}"
-            : $"app/{ctx.Dto.GetId()}") + $"/{ctx.DateSegment}/{ctx.FileName}"),
-        readAccessRole:RoleNames.AllowAnon, writeAccessRole:RoleNames.AllowAnon)
-));
-```
-
+temp files that persist AppHost Lifetime or Unit tests 
 
 https://github.com/ServiceStack/ServiceStack/blob/main/ServiceStack/tests/ServiceStack.WebHost.Endpoints.Tests/AutoQueryCrudTests.References.cs
 
@@ -529,6 +522,8 @@ Plugins.Add(new FilesUploadFeature(
         readAccessRole:RoleNames.AllowAnon, writeAccessRole:RoleNames.AllowAnon)
 ));
 ```
+
+#### Later...
 
 The `UploadLocation` is a named mapping which is then referenced on the data model column which stores the *path* only.
 This reference is made using the `UploadTo` attribute specifying the matching name, eg "employees".

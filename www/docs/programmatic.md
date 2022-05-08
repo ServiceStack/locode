@@ -255,6 +255,9 @@ public class InputInfo : IMeta
     public int? Step { get; set; }
     public int? MinLength { get; set; }
     public int? MaxLength { get; set; }
+    public string Accept  { get; set; }
+    public string Capture  { get; set; }
+    public bool? Multiple { get; set; }
     public string[] AllowableValues { get; set; }
     public KeyValuePair<string,string>[] AllowableEntries { get; set; }
     public string Options  { get; set; }
