@@ -454,8 +454,7 @@ let formData = new FormData(document.forms[0])
 let api = await client.apiForm(new MultipartRequest(), formData)
 ```
 
-Where `apiForm` can be used to submit `FormData` requests for normal API Requests, whereas `IReturnVoid` API requests 
-should instead use `apiFormVoid`.
+Where `apiForm` can be used to submit `FormData` requests for normal API Requests, or `apiFormVoid` for `IReturnVoid` API requests.
 
 ## Substitutable Virtual File Providers
 
@@ -507,9 +506,12 @@ static void ValidateUpload(IRequest request, IHttpFile file)
 
 ### Memory Virtual File Sources
 
-temp files that persist AppHost Lifetime or Unit tests 
+ServiceStack AppHost's are configured with an empty Memory VFS which can be used to transiently prepopulate App files 
+from external sources on Startup or maintain temporary working files with the same lifetime of the App without needing 
+to persist to disk.
 
-https://github.com/ServiceStack/ServiceStack/blob/main/ServiceStack/tests/ServiceStack.WebHost.Endpoints.Tests/AutoQueryCrudTests.References.cs
+They're also a great solution for Integration Testing managed file access without creating any persistent artifacts as done in
+[AutoQueryCrudTests.References.cs](https://github.com/ServiceStack/ServiceStack/blob/main/ServiceStack/tests/ServiceStack.WebHost.Endpoints.Tests/AutoQueryCrudTests.References.cs)
 
 ```csharp
 var memFs = GetVirtualFileSource<MemoryVirtualFiles>();
@@ -523,83 +525,36 @@ Plugins.Add(new FilesUploadFeature(
 ));
 ```
 
-#### Later...
+## Configuring Database-First Apps
 
-The `UploadLocation` is a named mapping which is then referenced on the data model column which stores the *path* only.
-This reference is made using the `UploadTo` attribute specifying the matching name, eg "employees".
+As [Database-First Types](/docs/database-first) are only generated & exist at runtime they can't be explicitly annotated
+with `[UploadTo]` attributes, instead they can be added dynamically at runtime by using AutoQuery's  `TypeFilter` which 
+is invoked for all Types including Request and Response DTO types. 
 
-The `TypeFilter` also fires for request and response DTO types, and we can find matching Request DTO types from the
-desired model name using `IsCrudCreateOrUpdate("Employee")`. This is a dynamic way of applying attributes to our
-database model `Employee` and related `CreateEmployee`/`UpdateEmployee` which can be more clearly represented in
-a code-first way using the following 3 classes.
-
-```csharp
-// Generated database model
-public class Employee
-{
-    ...
-    [Format(FormatMethods.IconRounded)]
-    public string PhotoPath { get;set; }
-    ...
-}
-
-// Generated Request DTO for create
-public class CreateEmployee : ICreateDb<Employee>, IReturn<IdResponse>
-{
-    ...
-    [Input(Type=Input.Types.File)]
-    [UploadTo("employees")]
-    public string PhotoPath { get;set; }
-}
-
-// Generated Request DTO for create
-public class UpdateEmployee : IPatchDb<Employee>, IReturn<IdResponse>
-{
-    ...
-    [Input(Type=Input.Types.File)]
-    [UploadTo("employees")]
-    public string PhotoPath { get;set; }
-}
-```
-
-This is done dynamically using the following code found in the `Northwind` Locode demo.
+An [example of this](https://github.com/NetCoreApps/NorthwindAuto/blob/master/Configure.AppHost.cs) can be found in the 
+`Northwind` Locode Database-First demo which uses `type.Name == "Employee"` to match on the `Employee` Data Model and 
+`IsCrudCreateOrUpdate("Employee")` Metadata Type extension method to target its `CreateEmployee` and `UpdateEmployee` CRUD APIs: 
 
 ```csharp
 ```csharp
 TypeFilter = (type, req) =>
 {
-    ...
-    if (type.Name == "Employee" || type.IsCrudCreateOrUpdate("Employee"))
+    if (type.Name == "Employee")
     {
-        ...
-        if (type.IsCrud())
-        {
-            type.Property("PhotoPath")
-                .AddAttribute(new InputAttribute { Type = Input.Types.File })
-                .AddAttribute(new UploadToAttribute("employees"));
-        }
-    }
-    ...
-}
-```
-
-Our sample Northwind database does store `Photo` as a blobbed data. For the demo, we are removing `Photo` column from
-the generated type and repurposing the `PhotoPath` to reference files matching the `Id` of the employee in a registered
-`FileSystemVirtualFiles` virtual file source.
-
-::: tip
-If files are stored in the database, to use the `FilesUploadFeature` they would need to be migrated out to a supported storage
-:::
-
-```csharp
-TypeFilter = (type, req) =>
-{
-    ...
-    if (type.Name == "Employee" || type.IsCrudCreateOrUpdate("Employee"))
-    {
+        // Remove embedded Blob column from Data Model Type 
         type.Properties.RemoveAll(x => x.Name == "Photo");
-        ...
     }
-    ...
+    if (type.IsCrudCreateOrUpdate("Employee"))
+    {
+        // Add `[Input]` and `[UploadTo]` attributes to `PhotoPath` managed file upload property
+        type.Property("PhotoPath")
+            .AddAttribute(new InputAttribute { Type = Input.Types.File })
+            .AddAttribute(new UploadToAttribute("employees"));
+    }
+    //...
 }
 ```
+
+The result of this is converting the Northwind Database from using the `Photo` blob column to persist image bit maps
+and instead uses the `PhotoPath` column to maintain an external file reference to their Profile Photo which is
+managed by the `FilesUploadFeature` to persist images to its configured `FileSystemVirtualFiles` virtual file source.
