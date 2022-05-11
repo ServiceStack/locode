@@ -217,7 +217,7 @@ All without needing to write a single line of implementation logic thanks to the
 Services & Auto UIs in Locode, API Explorer & Swagger UI. At the same time when needed the default behavior
 can be overridden at multiple levels, from custom AutoQuery implementations on the server to custom UIs on the client.
 
-For completeness, the entire code base used to implement the Bookings CRUD implementation is below: 
+For completeness, the entire source code used to implement the Bookings CRUD implementation is below: 
 
 ```csharp
 public class Booking : AuditBase
