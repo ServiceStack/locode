@@ -527,7 +527,7 @@ Plugins.Add(new FilesUploadFeature(
 
 ## Configuring Database-First Apps
 
-As [Database-First Types](/docs/database-first) are only generated & exist at runtime they can't be explicitly annotated
+As [Database-First Types](/locode/database-first) are only generated & exist at runtime they can't be explicitly annotated
 with `[UploadTo]` attributes, instead they can be added dynamically at runtime by using AutoQuery's  `TypeFilter` which 
 is invoked for all Types including Request and Response DTO types. 
 

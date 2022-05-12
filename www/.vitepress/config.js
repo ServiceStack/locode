@@ -27,14 +27,14 @@ export default {
     title: 'Locode',
     description: 'Config Desc',
     themeConfig: {
-        repo: 'ServiceStack/docs',
-        docsDir: 'docs',
+        repo: 'ServiceStack/locode',
+        docsDir: 'locode',
         editLinks: true,
         editLinkText: 'Edit this page on GitHub',
         lastUpdated: 'Last Updated',
         //lastUpdated: false,
         nav: [
-            { link:"/docs/", text:"Docs" },
+            { link:"/locode/", text:"Docs" },
         ],
         sidebar: {
             '/': [
@@ -43,15 +43,15 @@ export default {
                     "children": [
                         {
                             "text": "Getting Started",
-                            "link": "/docs/get-started"
+                            "link": "/locode/get-started"
                         },
                         {
                             "text": "Database-First",
-                            "link": "/docs/database-first"
+                            "link": "/locode/database-first"
                         },
                         {
                             "text": "Code-First",
-                            "link": "/docs/code-first"
+                            "link": "/locode/code-first"
                         }
                     ]
                 },
@@ -60,19 +60,19 @@ export default {
                     "children": [
                         {
                             "text": "Declarative Attributes",
-                            "link": "/docs/declarative"
+                            "link": "/locode/declarative"
                         },
                         {
                             "text": "Code Customizations",
-                            "link": "/docs/programmatic"
+                            "link": "/locode/programmatic"
                         },
                         {
                             "text": "Branding & Appearance",
-                            "link": "/docs/branding"
+                            "link": "/locode/branding"
                         },
                         {
                             "text": "Format Functions",
-                            "link": "/docs/formatters"
+                            "link": "/locode/formatters"
                         },
                     ]
                 },
@@ -81,15 +81,15 @@ export default {
                     "children": [
                         {
                             "text": "Overview",
-                            "link": "/docs/custom"
+                            "link": "/locode/custom"
                         },
                         {
                             "text": "Custom Forms",
-                            "link": "/docs/custom-forms"
+                            "link": "/locode/custom-forms"
                         },
                         {
                             "text": "Custom Components",
-                            "link": "/docs/custom-components"
+                            "link": "/locode/custom-components"
                         }
                     ]
                 },
@@ -98,11 +98,11 @@ export default {
                     "children": [
                         {
                             "text": "File Management",
-                            "link": "/docs/files"
+                            "link": "/locode/files"
                         },
                         {
                             "text": "Auditing",
-                            "link": "/docs/auditing"
+                            "link": "/locode/auditing"
                         },
                     ]
                 }

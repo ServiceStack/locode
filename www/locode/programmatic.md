@@ -48,7 +48,7 @@ ConfigurePlugin<UiFeature>(feature => {
 });
 ```
 
-These defaults can also be individually changed by `[LocodeCss]` and `[ExplorerCss]` to [Customize the Form CSS](/docs/declarative.html#custom-form-css)
+These defaults can also be individually changed by `[LocodeCss]` and `[ExplorerCss]` to [Customize the Form CSS](/locode/declarative.html#custom-form-css)
 for specific AutoQuery CRUD Operations.
 
 ## Customizing Inputs and Fields in Code
@@ -107,9 +107,9 @@ for registering a single lambda to customize the metadata for all Operations and
 to do the same for all DTO Types.
 
 Unlike the AutoGen `TypeFilter` to 
-[Modify Dynamic Types at Runtime](/docs/database-first.html#modifying-dynamic-types-at-runtime)
+[Modify Dynamic Types at Runtime](/locode/database-first.html#modifying-dynamic-types-at-runtime)
 which is only executed for customizing code-gen Types, these metadata APIs can be used for customizing the metadata
-of both [Database-First](/docs/database-first) and [Code-First](/docs/code-first) Types.
+of both [Database-First](/locode/database-first) and [Code-First](/locode/code-first) Types.
 
 So if the [Northwind Database-First](https://northwind.locode.dev) and 
 [Chinook Code-First](https://chinook.locode.dev) were both configured in the same App, you could use a single lambda

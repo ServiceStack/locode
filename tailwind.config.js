@@ -1,7 +1,7 @@
 module.exports = {
   content: [
     "./www/.vitepress/**/*.{vue,js,ts,md}",
-    "./www/docs/**/*.md"
+    "./www/locode/**/*.md"
   ],
   theme: {
     extend: {

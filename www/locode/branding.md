@@ -14,7 +14,7 @@ ConfigurePlugin<UiFeature>(feature =>
         <div class="flex-1 flex flex-col px-4 mt-4">
             <div class="mt-4 p-0 text-xl font-medium text-gray-500">Default</div>
             <div class="rounded-lg focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
-                <img src="/assets/img/docs/database-first-northwind-branding1.png" alt="">
+                <img src="/assets/img/database-first-northwind-branding1.png" alt="">
             </div>
         </div>
     </li>
@@ -22,7 +22,7 @@ ConfigurePlugin<UiFeature>(feature =>
         <div class="flex-1 flex flex-col px-4 mt-4">
             <div class="mt-4 p-0 text-xl font-medium text-gray-500">Custom branding</div>
             <div class="rounded-lg focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
-                <img src="/assets/img/docs/database-first-northwind-branding2.png" alt="">
+                <img src="/assets/img/database-first-northwind-branding2.png" alt="">
             </div>
         </div>
     </li>
@@ -30,7 +30,7 @@ ConfigurePlugin<UiFeature>(feature =>
 
 ### Custom Brand Component
 
-For even greater flexibility you can also replace the entire [Brand.html component](/docs/custom#custom-app-example) by
+For even greater flexibility you can also replace the entire [Brand.html component](/locode/custom#custom-app-example) by
 creating a local `Brand` component in 
 [/wwwroot/modules/shared/Brand.html](https://github.com/NetCoreTemplates/blazor-wasm/blob/main/MyApp/wwwroot/modules/shared/Brand.html)
 which the Blazor WASM template does with:
@@ -67,7 +67,7 @@ public class Booking
 
 Which will use this Icon whenever referring to `Booking` items:
 
-![](../public/assets/img/docs/code-first-bookings-custom-1.png)
+![](../public/assets/img/code-first-bookings-custom-1.png)
 
 ### Custom Icons for Database-first tables
 
@@ -95,7 +95,7 @@ public static Dictionary<string, string> Icons { get; } = new()
         <div class="flex-1 flex flex-col px-4 mt-4">
             <div class="mt-4 p-0 text-xl font-medium text-gray-500">Default Icon</div>
             <div class="rounded-lg focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
-                <img src="/assets/img/docs/database-first-northwind-icons-default.png" alt="">
+                <img src="/assets/img/database-first-northwind-icons-default.png" alt="">
             </div>
         </div>
     </li>
@@ -103,7 +103,7 @@ public static Dictionary<string, string> Icons { get; } = new()
         <div class="flex-1 flex flex-col px-4 mt-4">
             <div class="mt-4 p-0 text-xl font-medium text-gray-500">Custom Icon</div>
             <div class="rounded-lg focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
-                <img src="/assets/img/docs/database-first-northwind-icons-custom.png" alt="">
+                <img src="/assets/img/database-first-northwind-icons-custom.png" alt="">
             </div>
         </div>
     </li>
@@ -128,7 +128,7 @@ Instead of `Tables` we can now see our `Northwind` tag in the Locode app UI.
         <div class="flex-1 flex flex-col px-4 mt-4">
             <div class="mt-4 p-0 text-xl font-medium text-gray-500">Default "Tables"</div>
             <div class="rounded-lg focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
-                <img src="/assets/img/docs/database-first-northwind-branding2.png" alt="">
+                <img src="/assets/img/database-first-northwind-branding2.png" alt="">
             </div>
         </div>
     </li>
@@ -136,7 +136,7 @@ Instead of `Tables` we can now see our `Northwind` tag in the Locode app UI.
         <div class="flex-1 flex flex-col px-4 mt-4">
             <div class="mt-4 p-0 text-xl font-medium text-gray-500">Custom Tag</div>
             <div class="rounded-lg focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
-                <img src="/assets/img/docs/database-first-northwind-tags.png" alt="">
+                <img src="/assets/img/database-first-northwind-tags.png" alt="">
             </div>
         </div>
     </li>

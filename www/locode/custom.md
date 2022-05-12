@@ -1,12 +1,12 @@
 # Custom Locode Apps
 
-Locode also lets you create rich custom user experiences by going beyond the [declarative C# dev model](/docs/declarative)
+Locode also lets you create rich custom user experiences by going beyond the [declarative C# dev model](/locode/declarative)
 to create custom HTML & JS Components loaded directly in your Locode Apps.
 
-This lets us provide an enhanced UX beyond Locode's default UI to create [Custom Forms](/docs/custom-forms.html) for 
-some of our tables or [override Locode's own components](/docs/custom-components) to create a custom home page 
-or customize your [App's branding components](/docs/custom.html#custom-app-example) or make use of
-[custom format functions](/docs/formatters.html#custom-format-function) to change how results are rendered.
+This lets us provide an enhanced UX beyond Locode's default UI to create [Custom Forms](/locode/custom-forms.html) for 
+some of our tables or [override Locode's own components](/locode/custom-components) to create a custom home page 
+or customize your [App's branding components](/locode/custom.html#custom-app-example) or make use of
+[custom format functions](/locode/formatters.html#custom-format-function) to change how results are rendered.
 
 To facilitate custom HTML/JS UI development we've packaged type definitions for all Locode's functionality in the  
 `@servicestack/ui` npm package below to enable its productive typed development UX whose changes load instantly without
@@ -86,7 +86,7 @@ We'll go through each App's folder to better visualize their extension placehold
 
 ### /locode
 
-Lets you customize [Locode Apps](https://locode.dev) where [Custom Forms](/docs/custom-forms) can either be registered in 
+Lets you customize [Locode Apps](https://locode.dev) where [Custom Forms](/locode/custom-forms) can either be registered in 
 `custom.html` or added to `/components/*.html` where you can also override any of Locode's components by including 
 a locally modified copy from
 [/components/*.html](https://github.com/ServiceStack/ServiceStack/tree/main/ServiceStack/src/ServiceStack/modules/locode/components)
@@ -184,4 +184,4 @@ The [Blazor WASM](https://docs.servicestack.net/templates-blazor) template inclu
     </li>
 </ul>
 
-Next we'll see how we to create [Custom Forms](/docs/custom-forms) to replace the Auto Form UI in Locode Apps.
+Next we'll see how we to create [Custom Forms](/locode/custom-forms) to replace the Auto Form UI in Locode Apps.

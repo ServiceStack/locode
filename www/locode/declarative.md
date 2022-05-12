@@ -29,8 +29,8 @@ Chinook is a good simple Code-First example that's primarily focused on creating
 
  - [Configure.AppHost.cs](https://github.com/NetCoreApps/NorthwindAuto/blob/master/Configure.AppHost.cs)
 
-Whilst Northwind is a [Database-First](/docs/database-first) example, it still has access to the same attributes but are 
-instead [dynamically added at runtime](/docs/database-first#modifying-dynamic-types-at-runtime).
+Whilst Northwind is a [Database-First](/locode/database-first) example, it still has access to the same attributes but are 
+instead [dynamically added at runtime](/locode/database-first#modifying-dynamic-types-at-runtime).
 
 ## Overview
 
@@ -122,7 +122,7 @@ Use the Attributes to customize the functionality, behavior & accessibility of y
 More information on usage of these attributes can be found in 
 [Routing ](https://docs.servicestack.net/routing) Docs, 
 [Restricting Services](https://docs.servicestack.net/auth-restricting-services) and
-[Managed File Uploads](/docs/files) Docs.
+[Managed File Uploads](/locode/files) Docs.
 
 ### AutoQuery Attributes
 
@@ -244,7 +244,7 @@ These UI attributes can be used to customize Auto UI Form fields and how search 
 
 ### Result Formatters
 
-Refer to the [Formatters docs](/docs/formatters) for more info on how to use formatters to customize search results. 
+Refer to the [Formatters docs](/locode/formatters) for more info on how to use formatters to customize search results. 
 
 | Attribute            | Description                                                                  |
 |----------------------|------------------------------------------------------------------------------|
@@ -367,7 +367,7 @@ public class UpdateBooking : IPatchDb<Booking>, IReturn<IdResponse>
 
 Renders our custom Form layout:
 
-![](../public/assets/img/docs/locode-css.png)
+![](../public/assets/img/locode-css.png)
 
 These changes only applies to the Form when viewed in Locode, to change the Form in API Explorer use `[ExplorerCss]`: 
 
@@ -376,4 +376,4 @@ These changes only applies to the Form when viewed in Locode, to change the Form
              Form = "border border-indigo-500 overflow-hidden max-w-screen-lg")]
 ```
 
-When more customization is needed checkout how you can replace the entire Form in the [Custom Forms docs](/docs/custom-forms).
+When more customization is needed checkout how you can replace the entire Form in the [Custom Forms docs](/locode/custom-forms).

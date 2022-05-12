@@ -13,7 +13,7 @@ editing Albums by registering `NewAlbums` and `EditAlbums` components in
 [/modules/locode/custom.html](https://github.com/NetCoreApps/Chinook/blob/main/Chinook/wwwroot/modules/locode/custom.html) used to render Chinook's [custom Create Album form](https://chinook.locode.dev/locode/QueryAlbums?new=true)
 to update its `Albums` table.
 
-It's able to benefit from static analysis and intelli-sense by [installing @servicestack/ui](/docs/custom) and importing 
+It's able to benefit from static analysis and intelli-sense by [installing @servicestack/ui](/locode/custom) and importing 
 static types using standard ES6 import syntax which it can reference using standard [JSDoc annotations](https://jsdoc.app) 
 or [TypeScript's JSDoc support](https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html) as an alternative
 to maintaining a separate `custom.ts` file. By using JSDoc comments directly in `custom.js` we can avoid the
@@ -248,5 +248,5 @@ To minimize code duplication both custom forms makes use of a `SubmitAlbumButton
 
 ## Custom Locode Home Page
 
-Next we'll look at how we can create a [custom Home page](/docs/custom-components) by overriding Locode's
+Next we'll look at how we can create a [custom Home page](/locode/custom-components) by overriding Locode's
 existing `Welcome.html` component.

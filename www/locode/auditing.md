@@ -140,7 +140,7 @@ Audit History of each record at the bottom of its **Edit** Form.
 With our Bookings CRUD APIs now configured with Audit behavior we can see an example of what this looks like in Locode
 after the Employee User account records a Booking from **John Smith** for a **Single** room: 
 
-![](../public/assets/img/docs/audit-history-create.png)
+![](../public/assets/img/audit-history-create.png)
 
 With the left section displaying audit information about the CRUD operation and the User making it including their 
 UserName, Id and IP. The right section contains the info sent in the Request DTO, in this case the `CreateBooking` API. 
@@ -148,7 +148,7 @@ UserName, Id and IP. The right section contains the info sent in the Request DTO
 If **John Smith** later contacts the manager to upgrade his booking to a **Suite**, the Audit information will be updated
 with the `UpdateBooking` Audit entry which as it is a `IPatchDb<Table>` operation, only contains information that's **changed**:
 
-![](../public/assets/img/docs/audit-history-update.png)
+![](../public/assets/img/audit-history-update.png)
 
 This is typically why the behavior of `IPatchDb<Table>` is preferable over `IUpdateDb<Table>` APIs when Audit Tracking 
 is enabled as otherwise each Update operation would instead contain the entire entry on each update.
@@ -202,7 +202,7 @@ Which reduces the development to effort of creating Full Stack Apps down to decl
 simple POCOs to define the precise schema of the underlying RDBMS tables and API contract, that can then benefit from: 
 
  - Productive end-to-end [typed Development Model in 9 languages](https://servicestack.net/service-reference)
- - [Declarative Dev Model](/docs/declarative) for defining Authentication, Validation, Documentation & UI Customizations
+ - [Declarative Dev Model](/locode/declarative) for defining Authentication, Validation, Documentation & UI Customizations
  - Beautiful, UX-Friendly, capability-based Customizable UI in [Locode](https://locode.dev)
  - Rich analysis, API discoverability & [simplified client integrations](https://docs.servicestack.net/api-explorer#code-tab) in [API Explorer](https://docs.servicestack.net/api-explorer)
  - Powerful querying capabilities in [AutoQuery](https://docs.servicestack.net/autoquery)

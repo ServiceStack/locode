@@ -132,7 +132,7 @@ public class ConfigureAutoQuery : IHostingStartup
 The `AutoQueryFeature` plugin will automatically use your registered `IDbConnectionFactory` to communicate with your database and generate services 
 for the `public` schema. Running the application after these changes, we will have a `Query`, `Create`, `Update` and `Delete` services ready to use for each table.
 
-![](../public/assets/img/docs/database-first-northwind-default.png)
+![](../public/assets/img/database-first-northwind-default.png)
 
 ### Multiple Schemas
 
@@ -209,7 +209,7 @@ appHost.Plugins.Add(new AutoQueryFeature {
 
 ## Customizing Locode App
 
-Locode includes a [declarative dev model](/docs/declarative) where attributes can be used to add additional metadata 
+Locode includes a [declarative dev model](/locode/declarative) where attributes can be used to add additional metadata 
 to your services and data model that can be used to enlist additional functionality and enhance the Locode App's UI.
 
 ### Dynamically adding attributes
@@ -223,7 +223,7 @@ dynamically apply attributes to its generated types at startup.
 ### Exporting to code-first Types
 
 In addition to enabling access to the same rich declarative functionality ServiceStack
-[makes available via attributes](/docs/declarative), 
+[makes available via attributes](/locode/declarative), 
 it also annotates the code-generated types which are retained when moving from database-first to code-first dev model by
 [exporting to code-first types](https://docs.servicestack.net/autoquery-autogen#export-code-first-dtos) with:
 
@@ -351,7 +351,7 @@ A number of UX-Friendly extension methods are available to reduce effort for app
 
 ### Format search results
 
-The [Declarative Attributes docs](/docs/declarative) contains a more complete reference of built-in customizations,
+The [Declarative Attributes docs](/locode/declarative) contains a more complete reference of built-in customizations,
 but we'll cover a few the Northwind Locode App uses to illustrate some potential enhancements available.  
 
 An effortless way to add a lot of value to DB Apps is to mark up the raw data stored in RDBMS tables into a UX-friendly
@@ -374,7 +374,7 @@ To format the phone numbers in `tel:` HTML links enabling 1-click to call, direc
         <div class="flex-1 flex flex-col px-4 mt-4">
             <div class="mt-4 p-0 text-xl font-medium text-gray-500">Default</div>
             <div class="rounded-lg focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
-                <img src="/assets/img/docs/database-first-northwind-format-1.png" alt="">
+                <img src="/assets/img/database-first-northwind-format-1.png" alt="">
             </div>
         </div>
     </li>
@@ -382,14 +382,14 @@ To format the phone numbers in `tel:` HTML links enabling 1-click to call, direc
         <div class="flex-1 flex flex-col px-4 mt-4">
             <div class="mt-4 p-0 text-xl font-medium text-gray-500">FormatMethods.LinkPhone</div>
             <div class="rounded-lg focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
-                <img src="/assets/img/docs/database-first-northwind-format-2.png" alt="">
+                <img src="/assets/img/database-first-northwind-format-2.png" alt="">
             </div>
         </div>
     </li>
 </ul>
 </a>
 
-A complete list of built-in functions can be found in the [Format Functions docs](/docs/formatters), another example used in 
+A complete list of built-in functions can be found in the [Format Functions docs](/locode/formatters), another example used in 
 Northwind is `FormatMethods.IconRounded` on `PhotoPath`:
 
 ```csharp
@@ -408,7 +408,7 @@ To apply the `iconRounded` JavaScript function to render a preview of the Employ
         <div class="flex-1 flex flex-col px-4 mt-4">
             <div class="mt-4 p-0 text-xl font-medium text-gray-500">Default</div>
             <div class="rounded-lg focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
-                <img src="/assets/img/docs/database-first-northwind-format-icon-1.png" alt="">
+                <img src="/assets/img/database-first-northwind-format-icon-1.png" alt="">
             </div>
         </div>
     </li>
@@ -416,7 +416,7 @@ To apply the `iconRounded` JavaScript function to render a preview of the Employ
         <div class="flex-1 flex flex-col px-4 mt-4">
             <div class="mt-4 p-0 text-xl font-medium text-gray-500">FormatMethods.IconRounded</div>
             <div class="rounded-lg focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
-                <img src="/assets/img/docs/database-first-northwind-format-icon-2.png" alt="">
+                <img src="/assets/img/database-first-northwind-format-icon-2.png" alt="">
             </div>
         </div>
     </li>
@@ -438,7 +438,7 @@ Where its uploads are now managed by the configured `FilesUploadFeature` and bui
 ### ECMAScript Internationalization APIs
 
 ECMAScript's rich `Intl.NumberFormat`, `Intl.DateTimeFormat` and `Intl.RelativeTimeFormat` APIs are also available from the 
-typed [[Intl*] Attributes](/docs/formatters.html#intl-attributes) which `OrderDetail` makes use of to format `UnitPrice`
+typed [[Intl*] Attributes](/locode/formatters.html#intl-attributes) which `OrderDetail` makes use of to format `UnitPrice`
 in **USD Currency** and `Discount` in a **% percentage** format:
 
 ```csharp
@@ -457,7 +457,7 @@ This can give a much more contextual view of the data in the returning from our 
         <div class="flex-1 flex flex-col px-4 mt-4">
             <div class="mt-4 p-0 text-xl font-medium text-gray-500">Default</div>
             <div class="rounded-lg focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
-                <img src="/assets/img/docs/database-first-northwind-intl-1.png" alt="">
+                <img src="/assets/img/database-first-northwind-intl-1.png" alt="">
             </div>
         </div>
     </li>
@@ -465,11 +465,11 @@ This can give a much more contextual view of the data in the returning from our 
         <div class="flex-1 flex flex-col px-4 mt-4">
             <div class="mt-4 p-0 text-xl font-medium text-gray-500">IntlNumber</div>
             <div class="rounded-lg focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
-                <img src="/assets/img/docs/database-first-northwind-intl-2.png" alt="">
+                <img src="/assets/img/database-first-northwind-intl-2.png" alt="">
             </div>
         </div>
     </li>
 </ul>
 </a>
 
-For more customization options, see the [Declarative Attributes docs](/docs/declarative). 
+For more customization options, see the [Declarative Attributes docs](/locode/declarative). 

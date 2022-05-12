@@ -60,13 +60,13 @@ TypeFilter = (type, req) =>
 <ul role="list" class="m-4 grid grid-cols-1 xl:grid-cols-2 gap-x-4 gap-y-8 xl:gap-x-8">
   <li class="relative">
     <div class="group block w-full aspect-w-13 aspect-h-6 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
-      <img src="/assets/img/docs/database-first-northwind-input-1.png" alt="" class="object-cover pointer-events-none group-hover:opacity-75">
+      <img src="/assets/img/database-first-northwind-input-1.png" alt="" class="object-cover pointer-events-none group-hover:opacity-75">
     </div>
     <p class="block text-sm font-medium text-gray-500 pointer-events-none">Without `Input`</p>
   </li>
   <li class="relative">
     <div class="group block w-full aspect-w-13 aspect-h-6  rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
-      <img src="/assets/img/docs/database-first-northwind-input-2.png" alt="" class="object-cover pointer-events-none group-hover:opacity-75">
+      <img src="/assets/img/database-first-northwind-input-2.png" alt="" class="object-cover pointer-events-none group-hover:opacity-75">
     </div>
     <p class="block text-sm font-medium text-gray-500 pointer-events-none">Custom `Input`</p>
   </li>
@@ -74,6 +74,6 @@ TypeFilter = (type, req) =>
 
 This enables the lookup field UI functionality for the `ReportsTo` property making it is easy to select the correct `Id` to be stored in the same column.
 
-<img src="/assets/img/docs/locode-lookup.gif" alt="" class="object-cover pointer-events-none group-hover:opacity-75">
+<img src="/assets/img/locode-lookup.gif" alt="" class="object-cover pointer-events-none group-hover:opacity-75">
 
 The use of `RefLabel` controls which column on the `RefModel` is to be used as the visual data in the Locode app. The `RefId` is the target `RefModel` column in the foreign key relationship.

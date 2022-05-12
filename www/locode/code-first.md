@@ -270,21 +270,21 @@ Locode is a capability-based UI that only enables functionality for CRUD APIs th
 user has access to. As these public APIs don't have any auth restrictions applied to them, they can be used immediately
 by non-authenticated users without signing in to query, insert, update and delete from the `Booking` Table:
 
-![](../public/assets/img/docs/code-first-bookings-mvp.png)
+![](../public/assets/img/code-first-bookings-mvp.png)
 
 Clicking on our `Booking` services on the left-hand menu utilizes the `QueryBooking` AutoQuery API, we can see the test 
 seed data that was populated.
 
-![](../public/assets/img/docs/code-first-bookings-mvp-2.png)
+![](../public/assets/img/code-first-bookings-mvp-2.png)
 
 Using the **New Booking** button gives us a metadata driven Form IO derived from the properties of the `CreateBooking` Request DTO:
 
-![](../public/assets/img/docs/code-first-bookings-mvp-3.png)
+![](../public/assets/img/code-first-bookings-mvp-3.png)
 
 This form also allows editing existing bookings using the Edit button in the first column given its functionality is enabled 
 with the application having the `IPatch<Booking>` API defined.
 
-![](../public/assets/img/docs/code-first-bookings-mvp-4.png)
+![](../public/assets/img/code-first-bookings-mvp-4.png)
 
 ## Customizing Locode App
 
@@ -293,4 +293,4 @@ to power its instant CRUD UI letting your App users start managing its data imme
 
 This touches on some basic functionality to get started in Locode, next we'll explore its declarative dev model
 with the different ways you can annotate your services and data model to customize its behavior & appearance and
-enhance it with additional functionality using the available composable built-in [declarative C# attributes](/docs/declarative).
+enhance it with additional functionality using the available composable built-in [declarative C# attributes](/locode/declarative).
