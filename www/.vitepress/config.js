@@ -34,80 +34,9 @@ export default {
         lastUpdated: 'Last Updated',
         //lastUpdated: false,
         nav: [
-            { link:"/locode/", text:"Docs" },
+            {link: "https://docs.servicestack.net/locode/", text: "Docs"},
         ],
-        sidebar: {
-            '/': [
-                {
-                    "text": "Introduction",
-                    "children": [
-                        {
-                            "text": "Getting Started",
-                            "link": "/locode/get-started"
-                        },
-                        {
-                            "text": "Database-First",
-                            "link": "/locode/database-first"
-                        },
-                        {
-                            "text": "Code-First",
-                            "link": "/locode/code-first"
-                        }
-                    ]
-                },
-                {
-                    "text": "C# Development Model",
-                    "children": [
-                        {
-                            "text": "Declarative Attributes",
-                            "link": "/locode/declarative"
-                        },
-                        {
-                            "text": "Code Customizations",
-                            "link": "/locode/programmatic"
-                        },
-                        {
-                            "text": "Branding & Appearance",
-                            "link": "/locode/branding"
-                        },
-                        {
-                            "text": "Format Functions",
-                            "link": "/locode/formatters"
-                        },
-                    ]
-                },
-                {
-                    "text": "Custom HTML/JS",
-                    "children": [
-                        {
-                            "text": "Overview",
-                            "link": "/locode/custom"
-                        },
-                        {
-                            "text": "Custom Forms",
-                            "link": "/locode/custom-forms"
-                        },
-                        {
-                            "text": "Custom Components",
-                            "link": "/locode/custom-components"
-                        }
-                    ]
-                },
-                {
-                    "text": "Features",
-                    "children": [
-                        {
-                            "text": "File Management",
-                            "link": "/locode/files"
-                        },
-                        {
-                            "text": "Auditing",
-                            "link": "/locode/auditing"
-                        },
-                    ]
-                }
-            ],
-        }
+        sidebar: {},
     },
     head: [
         ['script', { src: '/custom.js' }],

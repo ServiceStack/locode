@@ -28,7 +28,7 @@ import Features from './Features.vue'
                   <span class="block text-indigo-400">rich web apps</span>
                 </h1>
                 <p class="mt-3 text-base text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                  <b>Locode</b> lets you rapidly develop progressive beautiful database-powered Web Apps,
+                  <b>Locode</b> lets you rapidly develop beautiful database-powered Web Apps,
                   from an Instant UI around existing database-first RDBMS tables for rapid prototyping,
                   export into declarative code-first development model with unprecedented customizability,
                   on top of industrial strength APIs offering a superior end-to-end typed development model for

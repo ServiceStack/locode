@@ -75,10 +75,10 @@
           </div>
           <div class="mt-6 sm:max-w-xl">
             <h1 class="text-4xl font-extrabold text-gray-900 tracking-tight sm:text-5xl">
-              Chinook Auto APIs &amp; Locode App
+              Chinook Locode App
             </h1>
             <p class="mt-6 text-xl text-gray-500">
-              Chinook is a customized code-first App using
+              Chinook is a customized <a href="https://docs.servicestack.net/locode/code-first">Code-First</a> App using
               <a class="text-rose-500" href="https://docs.servicestack.net/autoquery-autogen">AutoGen</a> to
               <a class="text-rose-500" href="https://docs.servicestack.net/autoquery-autogen#export-code-first-dtos">export</a>
               Chinook's RDBMS Tables into
