@@ -2,7 +2,7 @@
 import { useData } from 'vitepress'
 const { site, page, theme } = useData()
 import { useTransitions } from "../src/transitions"
-let transition = useTransitions({topNav:true})
+let transition = useTransitions({topNav:false})
 let homeMenu = nav => [
   ...nav,
   { link:'https://forums.servicestack.net', text:'Forums' },
@@ -46,7 +46,7 @@ let homeMenu = nav => [
           entering: { cls:'duration-150 ease-out', from:'opacity-0 scale-95',    to:'opacity-100 scale-100'},
           leaving:  { cls:'duration-100 ease-in',  from:'opacity-100 scale-100', to:'opacity-0 scale-95' }
         }" data-transition-for="topNav"
-        class="absolute z-10 top-0 inset-x-0 p-2 transition transform origin-top md:hidden">
+        class="absolute z-10 top-0 opacity-0 inset-x-0 p-2 transition transform origin-top md:hidden">
       <div class="rounded-lg shadow-md bg-white ring-1 ring-black ring-opacity-5 overflow-hidden">
         <div class="px-5 pt-4 flex items-center justify-between">
           <div>
