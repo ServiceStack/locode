@@ -34,11 +34,12 @@ export default {
         lastUpdated: 'Last Updated',
         //lastUpdated: false,
         nav: [
-            {link: "https://docs.servicestack.net/locode/", text: "Docs"},
+            { link: "https://docs.servicestack.net/locode/", text: "Docs" },
         ],
         sidebar: {},
     },
     head: [
+        ['script', { src:'https://www.googletagmanager.com/gtag/js?id=G-3YPWRBVY0X'} ],
         ['script', { src: '/custom.js' }],
     ],
     markdown: {
