@@ -1,5 +1,5 @@
 <template>
-<div class="relative bg-gray-50 pt-16 overflow-hidden sm:pt-24 lg:pt-32">
+<div id="code-first" class="relative bg-gray-50 pt-16 overflow-hidden sm:pt-24 lg:pt-32">
 
   <div>
     <div class="relative overflow-hidden">
